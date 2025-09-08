@@ -33,35 +33,26 @@ function initNavigation() {
     // Navbar scroll effect
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
+            navLinks.forEach(Links => {Links.classList.add('scrolled');});
+            logoText.forEach(text => {text.classList.add('scrolled')});
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
+            navLinks.forEach(Links => {Links.classList.remove('scrolled');});
+            logoText.forEach(text => {text.classList.remove('scrolled')});
         }
     });
-
-    navLinks.forEach(Links => {
-         window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            Links.classList.add('scrolled');
+    window.addEventListener('pageshow', function(){
+                if (window.scrollY > 100) {
+            navLinks.forEach(Links => {Links.classList.add('scrolled');});
+            logoText.forEach(text => {text.classList.add('scrolled')});
+            navbar.classList.add('scrolled');
         } else {
-            Links.classList.remove('scrolled');
+            navbar.classList.remove('scrolled');
+            navLinks.forEach(Links => {Links.classList.remove('scrolled');});
+            logoText.forEach(text => {text.classList.remove('scrolled')});
         }
-        })
     });
-
-    logoText.forEach(Links => {
-         window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            Links.classList.add('scrolled');
-        } else {
-            Links.classList.remove('scrolled');
-        }
-        })
-    });
-
-
-
-
     // Active navigation link based on scroll position
     window.addEventListener('scroll', function() {
         let current = '';
