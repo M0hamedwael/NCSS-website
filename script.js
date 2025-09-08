@@ -14,3 +14,25 @@ window.addEventListener("scroll", function() {
     navbar.classList.remove("scrolled");
   }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  // اسم الصفحة الحالي (مثلاً about.html)
+  let currentPage = window.location.pathname.split("/").pop().toLowerCase();
+
+  if (!currentPage || currentPage === "/") {
+    currentPage = "index.html"; // لو الرئيسية
+  }
+
+  console.log("📌 Current page:", currentPage); // للتشخيص
+
+  // لف على كل اللينكات
+  document.querySelectorAll(".nav-link").forEach(link => {
+    const linkHref = link.getAttribute("href").toLowerCase();
+    console.log("👉 Checking link:", linkHref);
+
+    if (linkHref === currentPage) {
+      link.classList.add("active");
+      console.log("✅ Active applied on:", linkHref);
+    }
+  });
+});
