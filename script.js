@@ -14,6 +14,7 @@ function initNavigation() {
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     const navbar = document.getElementById('navbar');
+    const logoText = document.querySelectorAll('.logo-text');
 
     // Mobile menu toggle
     hamburger.addEventListener('click', function() {
@@ -37,6 +38,29 @@ function initNavigation() {
             navbar.classList.remove('scrolled');
         }
     });
+
+    navLinks.forEach(Links => {
+         window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            Links.classList.add('scrolled');
+        } else {
+            Links.classList.remove('scrolled');
+        }
+        })
+    });
+
+    logoText.forEach(Links => {
+         window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            Links.classList.add('scrolled');
+        } else {
+            Links.classList.remove('scrolled');
+        }
+        })
+    });
+
+
+
 
     // Active navigation link based on scroll position
     window.addEventListener('scroll', function() {
