@@ -838,6 +838,3 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 // Initialize performance monitoring
 initPerformanceMonitoring();
 
-// Hero Section Slideshow
-// Hero Section Slideshow (slide from right)
-
