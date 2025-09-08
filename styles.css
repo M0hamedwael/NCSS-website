@@ -149,8 +149,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover{
     color: #1B4B5A;
 }
 
@@ -471,7 +470,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Admissions Section */
 .admissions {
     padding: 100px 0;
-    background: white;
+    background: #f8f9fa;
+
 }
 
 .admissions-content {
@@ -1324,3 +1324,168 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
+
+.slideshow {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .slideshow img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 100%; /* كل الصور تبدأ برا الشاشة من اليمين */
+    transition: left 1s ease-in-out;
+  }
+  
+  .slideshow img.active {
+    left: 0; /* الصورة الحالية تبقى في النص */
+    z-index: 2;
+  }
+  
+  .slideshow img.prev {
+    left: -100%; /* الصورة اللي بتتزحلق لبره شمال */
+    z-index: 1;
+  }
+
+#see-more{
+  display: block;
+  margin-left: 15px;
+}
+#btn-see-more{
+    width: 50%;
+    margin: auto;
+}
+#img1{
+    margin-left: 200px;
+    width: 70%;
+}
+#img2{
+    margin-left: -110px;
+    width: 70%;
+}
+#admissions-btn {
+    background-color: white;
+    border: 2px solid #1B4B5A;
+    height: 50px;
+    margin-left: 80%;
+    border-radius: 0px;
+    width: 250px;
+    cursor: pointer;
+    color: #1B4B5A;
+    font-size: 16px;
+    background-image: linear-gradient(135deg, #1B4B5A, #2A6B7A);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    background-position: left;
+    transition: background-size 0.5s ease, color 0.5s ease;
+}
+
+#admissions-btn:hover {
+    background-size: 100% 100%; /* fill from left to right */
+    color: white;
+}
+
+/* ////////////// */
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* يخلي السيكشن مليان الشاشة */
+    overflow: hidden;
+  }
+  
+  .hero-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* الفيديو يغطي الشاشة كلها */
+    z-index: -1;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* شفاف عشان النص يبان */
+    z-index: 0;
+  }
+  
+  .hero-text {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    top: 40%;
+    transform: translateY(-50%);
+    margin-top: 100px;
+  }
+  
+  .hero-text h1 {
+    font-size: 6em;
+    font-weight: 700;
+    line-height: 1.2;
+    font-family: 'Oswald', sans-serif;
+
+  }
+.ncss{
+    font-size: 4em;
+}
+.ncss , .h1-hero {
+    font-size: 100px; 
+    font-weight: 700;
+    color: transparent; 
+    -webkit-text-stroke: 2px #F7F1C5; 
+    text-align: center;
+  }
+
+
+/* خلي المؤسسين في شبكة */
+#websitefounders .campus-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 في الصف */
+    gap: 20px;
+    justify-items: center; /* يخليهم في النص */
+}
+
+/* خلي الـ div بتاع founder يبقى دايرة */
+#websitefounders #founder {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%; /* دايرة */
+    overflow: hidden;   /* يخلي الصورة ما تخرجش برة الدايرة */
+    position: relative;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* الصور جوا الدايرة */
+#websitefounders #founder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* يخليها تملى الدايرة من غير تشويه */
+}
+
+/* الكتابة تبان كـ overlay */
+#websitefounders #founder .gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 5px;
+    text-align: center;
+}
+
+.job{
+    margin-bottom: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}  

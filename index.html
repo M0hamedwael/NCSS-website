@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Cairo STEM School</title>
+    <link rel="icon" href="images/ico school.png">
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.cdnfonts.com/css/promesh" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -24,16 +30,16 @@
                     <a href="#about" class="nav-link">About</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#campus" class="nav-link">Campus</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#academics" class="nav-link">Academics</a>
+                    <a href="Academics.html" class="nav-link">Academics & Skills</a>
                 </li>
                 <li class="nav-item">
                     <a href="#admissions" class="nav-link">Admissions</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="Acheivments.html" class="nav-link">Students Acheivments</a>
+                </li>
+                <li class="nav-item">
+                    <a href="contact.html" class="nav-link">Contact</a>
                 </li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -45,27 +51,26 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-background">
-            <div class="hero-overlay"></div>
-            <img src="images/new_hero_image.jpg" alt="New Cairo STEM School Campus" class="hero-image">
-        </div>
-        <div class="hero-content">
-            <div class="hero-logo">
-                <img src="images/logo.png" alt="New Cairo STEM School Logo" class="hero-logo-img">
-            </div>
-            <h1 class="hero-title">Welcome to New Cairo STEM School</h1>
-            <p class="hero-subtitle">Be perfect in Science, Technology, Engineering & Mathematics</p>
-            <p class="hero-description">Empowering the next generation of innovators through a world-class STEM curriculum and hands-on learning experiences.</p>
-            <div class="hero-buttons">
-                <a href="#about" class="btn btn-primary">Discover More</a>
-                <a href="#admissions" class="btn btn-secondary">Apply Now</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-background">
+
+      <video autoplay muted loop class="hero-video">
+        <source src="images/school imaage.mp4" type="video/mp4">
+    
+      </video>
+  
+      <div class="hero-overlay"></div>
+  
+      <div class="hero-text">
+        <h1 class="h1-hero">New Cairo </h1>
+        <h1 class="ncss"><i>"NCSS"</i></h1>
+        <h1 class="h1-hero">STEM School </h1>
+      </div>
+    </div>
+  </section>
+  
+
 
     <!-- About Section -->
     <section id="about" class="about">
@@ -101,48 +106,40 @@
         </div>
     </section>
 
-    <!-- Campus Section -->
+    <!-- Staff Section -->
     <section id="campus" class="campus">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Campus</h2>
-                <p class="section-subtitle">State-of-the-art facilities designed for modern learning</p>
+                <h2 class="section-title">Our Staff</h2>
+                <p class="section-subtitle">Behind every student’s success stands a devoted teacher. Every dream takes shape with the guidance of a mentor.
+                    <br> Each bright mind grows through the inspiration of educators. Our staff are the heart of every achievement."</p>
             </div>
             <div class="campus-gallery">
-                <div class="gallery-item" data-image="images/Screenshot 2025-07-17 152545.png">
-                    <img src="images/Screenshot 2025-07-17 152545.png" alt="Main Campus Building">
+                <div class="gallery-item"  id="img1">
+                    <img src="images/Dr.marwa.png" alt="Principal of School">
                     <div class="gallery-overlay">
-                        <h4>Main Campus</h4>
-                        <p>Modern classrooms and laboratories</p>
+                        <h4>Dr.Marwa Elmoursy</h4>
+                        <p>School's Principa</p>
                     </div>
                 </div>
-                <div class="gallery-item" data-image="images/Screenshot 2025-07-17 152604.png">
-                    <img src="images/Screenshot 2025-07-17 152604.png" alt="Evening Campus View">
+                <div id="btn-see-more">
+                    <button class="btn btn-primary" id="see-more" onclick="window.location.href='Staff.html'"> See more</button>
+                </div>
+                <div class="gallery-item" id="img2">
+                    <img src="images/Dr. Akef.png" alt="Mr. Akef Eltahawy">
                     <div class="gallery-overlay">
-                        <h4>Evening Campus</h4>
-                        <p>Beautiful campus lighting</p>
+                        <h4>Dr. Akef Eltahawy</h4>
+                        <p>School's Deputy</p>
                     </div>
                 </div>
-                <div class="gallery-item" data-image="images/Screenshot 2025-07-17 152646.png">
-                    <img src="images/Screenshot 2025-07-17 152646.png" alt="Girls Building">
-                    <div class="gallery-overlay">
-                        <h4>Girls Building</h4>
-                        <p>Dedicated facilities for female students</p>
-                    </div>
-                </div>
-                <div class="gallery-item" data-image="images/Screenshot 2025-07-17 152706.png">
-                    <img src="images/Screenshot 2025-07-17 152706.png" alt="Boys Building">
-                    <div class="gallery-overlay">
-                        <h4>Boys Building</h4>
-                        <p>Comprehensive facilities for male students</p>
-                    </div>
+                
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Academics Section -->
-    <section id="academics" class="academics">
+    <!-- <section id="academics" class="academics">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Academic Programs</h2>
@@ -179,105 +176,23 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Admissions Section -->
     <section id="admissions" class="admissions">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Admissions & Targeted Students</h2>
-                <p class="section-subtitle">Join Egypt's premier STEM education community</p>
+                <p class="section-subtitle">NCSS welcomes students with a passion for STEM,<br> strong academic performance in math and science,<br> problem-solving skills, and a commitment to innovation and excellence.</p>
             </div>
             <div class="admissions-content">
                 <div class="admissions-info">
-                    <h3>Admission Requirements</h3>
-                    <p>New Cairo STEM School targets prospective students with demonstrated passion and aptitude for Science, Technology, Engineering, and Mathematics. We seek academically motivated individuals ready to excel in a challenging environment.</p>
-                    <div class="requirements-list">
-                        <div class="requirement-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Excellent academic performance in mathematics and sciences</span>
-                        </div>
-                        <div class="requirement-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Strong problem-solving and analytical thinking skills</span>
-                        </div>
-                        <div class="requirement-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Demonstrated interest in STEM fields</span>
-                        </div>
-                        <div class="requirement-item">
-                            <i class="fas fa-check-circle"></i>
-                            <span>Commitment to academic excellence and innovation</span>
-                        </div>
-                    </div>
-                    <a href="#contact" class="btn btn-primary">Apply Now</a>
-                </div>
-                <div class="admissions-image">
-                    <img src="images/Screenshot 2025-07-17 152613.png" alt="STEM Students" class="admissions-img">
+                    <h3><button id="admissions-btn" onclick="window.location.href='Admissions.html'">Admission Requirements</button></h3>
                 </div>
             </div>
-        </div>
+            </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Contact Us</h2>
-                <p class="section-subtitle">Get in touch with our admissions team</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Location</h4>
-                            <p>New Cairo, Egypt</p>
-                            <a href="https://maps.app.goo.gl/yrtYo7gpPRQVSvuy8" target="_blank" class="map-link">View on Map</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>newcairosch@stemnewcairo.moe.edu.eg</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" id="phone" name="phone" placeholder="Your Phone">
-                        </div>
-                        <div class="form-group">
-                            <select id="subject" name="subject" required>
-                                <option value="">Select Subject</option>
-                                <option value="admissions">Admissions Inquiry</option>
-                                <option value="academics">Academic Programs</option>
-                                <option value="campus">Campus Visit</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -295,10 +210,11 @@
                     <ul class="footer-links">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="#campus">Campus</a></li>
-                        <li><a href="#academics">Academics</a></li>
-                        <li><a href="#admissions">Admissions</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="Academics.html">Academics & Skills</a></li>
+                        <li><a href="Admissions.html">Admissions</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="Achievments.html">Students Acheivments</a></li>
+                        <li><a href="Staff.html">Staff</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -313,7 +229,6 @@
             <div class="footer-bottom">
                 <div class="footer-credits">
                     <p>&copy; 2025 New Cairo STEM School. All rights reserved.</p>
-                    <p>Website developed by <strong>Youseff Samir Mohammed</strong> & <strong>Yasin Mohammed Gaber</strong></p>
                 </div>
             </div>
         </div>
