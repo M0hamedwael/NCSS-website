@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery - New Cairo STEM School</title>
+  <link rel="icon" href="images/ico school.png">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="images/logo.png" alt="New Cairo STEM School" class="logo">
+        <span class="logo-text">New Cairo STEM School</span>
+      </div>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="About.html" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="Academics.html" class="nav-link">Academics</a></li>
+        <li class="nav-item"><a href="Admissions.html" class="nav-link">Admissions</a></li>
+        <li class="nav-item"><a href="Acheivments.html" class="nav-link">Achievements</a></li>
+        <li class="nav-item"><a href="Staff.html" class="nav-link">Staff</a></li>
+        <li class="nav-item"><a href="photos.html" class="nav-link active">Photo Gallery</a></li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="photo-gallery">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Photo Gallery</h2>
+      <p class="section-subtitle">Explore school life and activities</p>
+    </div>
+
+    <div class="slider">
+      <div class="slides">
+        <div class="slide"><img src="images/gallery1.jpg" alt="Gallery 1"></div>
+        <div class="slide"><img src="images/gallery2.jpg" alt="Gallery 2"></div>
+        <div class="slide"><img src="images/gallery3.jpg" alt="Gallery 3"></div>
+        <div class="slide"><img src="images/gallery4.jpg" alt="Gallery 4"></div>
+        <div class="slide"><img src="images/gallery5.jpg" alt="Gallery 5"></div>
+        <div class="slide"><img src="images/gallery6.jpg" alt="Gallery 6"></div>
+        <div class="slide"><img src="images/gallery7.jpg" alt="Gallery 7"></div>
+        <div class="slide"><img src="images/gallery8.jpg" alt="Gallery 8"></div>
+        <div class="slide"><img src="images/gallery10.jpg" alt="Gallery 10"></div>
+        <div class="slide"><img src="images/gallery11.jpg" alt="Gallery 11"></div>
+        <div class="slide"><img src="images/gallery12.jpg" alt="Gallery 12"></div>
+        <div class="slide"><img src="images/gallery13.jpg" alt="Gallery 13"></div>
+      </div>
+
+      <!-- arrows -->
+      <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+      <button class="next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+  </div>
+</section>
+
+<style>
+.slider {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+.slide {
+  min-width: 100%;
+}
+.slide img {
+  width: 100%;
+  border-radius: 15px;
+  display: block;
+}
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(27, 75, 90, 0.7);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.prev { left: 15px; }
+.next { right: 15px; }
+.prev:hover, .next:hover {
+  background: rgba(27, 75, 90, 1);
+}
+</style>
+
+<script>
+let currentSlide = 0;
+function moveSlide(step) {
+  const slides = document.querySelector(".slides");
+  const totalSlides = document.querySelectorAll(".slide").length;
+  currentSlide = (currentSlide + step + totalSlides) % totalSlides;
+  slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+</script>
+
+
+     <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            
+            <!-- اللوجو -->
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="New Cairo STEM School" class="footer-logo-img">
+                    <h3>New Cairo STEM School</h3>
+                </div>
+                <p>Excellence in Science, Technology, Engineering & Mathematics education, preparing students for a bright future in STEM fields.</p>
+            </div>
+
+            <!-- الروابط -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About</a></li>
+                    <li><a href="Academics.html">Academics & Skills</a></li>
+                    <li><a href="Admissions.html">Admissions</a></li>
+                    <li><a href="Achievments.html">Students Achievements</a></li>
+                    <li><a href="Staff.html">Staff</a></li>
+                    <li><a href="photos.html">Photo Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- معلومات التواصل -->
+            <!-- Contact Info -->
+<div class="footer-section">
+    <h4>Contact Info</h4>
+    <div class="footer-contact">
+        <p>
+            <i class="fas fa-map-marker-alt"></i> 
+            <a href="https://www.google.com/maps/place/%D9%85%D8%AF%D8%B1%D8%B3%D8%A9+%D8%A7%D9%84%D9%85%D8%AA%D9%81%D9%88%D9%82%D9%8A%D9%86+%D9%81%D9%8A+%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85+%D9%88%D8%A7%D9%84%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7%E2%80%AD/@30.0290372,31.4266749,17z/data=!3m1!4b1!4m6!3m5!1s0x14583d04f490b673:0xf0d4baef2536850b!8m2!3d30.0290372!4d31.4266749!16s%2Fg%2F11s7y_sqv6?entry=tts&g_ep=EgoyMDI1MDcxMy4wIPu8ASoASAFQAw%3D%3D&skid=bd41539d-509f-4e99-953e-8ed531167d8a" 
+               target="_blank" 
+               style="color: white; text-decoration: none;">
+               New Cairo, Egypt
+            </a>
+        </p>
+        <p>
+            <i class="fas fa-envelope"></i> 
+            <a href="mailto:newcairosch@stemnewcairo.moe.edu.eg" 
+               style="color: white; text-decoration: none;">
+               newcairosch@stemnewcairo.moe.edu.eg
+            </a>
+        </p>
+    </div>
+</div>
+
+        </div>
+
+        <!-- الحقوق -->
+        <div class="footer-bottom">
+            <div class="footer-credits">
+                <p>&copy; 2025 New Cairo STEM School. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

@@ -17,8 +17,7 @@
 <body>
     <!-- Navigation -->
     
-
-<nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar">
   <div class="nav-container">
     <div class="nav-logo">
       <img src="images/logo.png" alt="New Cairo STEM School" class="logo">
@@ -27,11 +26,12 @@
 
     <ul class="nav-menu" id="nav-menu">
       <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-      <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
+      <li class="nav-item"><a href="About.html" class="nav-link">About</a></li>
       <li class="nav-item"><a href="Academics.html" class="nav-link">Academics & Skills</a></li>
       <li class="nav-item"><a href="Admissions.html" class="nav-link">Admissions</a></li>
       <li class="nav-item"><a href="Acheivments.html" class="nav-link">Students Achievements</a></li>
       <li class="nav-item"><a href="Staff.html" class="nav-link">Staff</a></li>
+      <li class="nav-item"><a href="photos.html" class="nav-link">Photo gallery</a></li>
       <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
     </ul>
 
@@ -66,38 +66,45 @@
 
 
     <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">About Our School</h2>
-                <p class="section-subtitle">Ranked as one of Egypt's premier STEM institutions</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Excellence in STEM Education</h3>
-                    <p>New Cairo STEM School offers a unique educational system that focuses on scientific, mathematical, and technological fields. Our school targets high-potential students who demonstrate strong academic skills and passion for innovation.</p>
-                    <p>We provide a collaborative learning environment that merges rigorous academic curricula with hands-on research experiences, preparing our students for success in top universities and future careers in STEM fields.</p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <div class="stat-number">95%</div>
-                            <div class="stat-label">University Acceptance</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">150+</div>
-                            <div class="stat-label">Annual Graduates</div>
-                        </div>
-                        <div class="stat-item">
-                            <div class="stat-number">20+</div>
-                            <div class="stat-label">Research Projects</div>
-                        </div>
+   <section id="about" class="about">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">About Our School</h2>
+            <p class="section-subtitle">Ranked as one of Egypt's premier STEM institutions</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Excellence in STEM Education</h3>
+                <p>New Cairo STEM School offers a unique educational system that focuses on scientific, mathematical, and technological fields. Our school targets high-potential students who demonstrate strong academic skills and passion for innovation.</p>
+                <p>We provide a collaborative learning environment that merges rigorous academic curricula with hands-on research experiences, preparing our students for success in top universities and future careers in STEM fields.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">University Acceptance</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Annual Graduates</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">20+</div>
+                        <div class="stat-label">Research Projects</div>
                     </div>
                 </div>
-                <div class="about-image">
-                    <img src="images/Screenshot 2025-07-17 152613.png" alt="Students at New Cairo STEM School" class="about-img">
+
+                <!-- زرار Show More -->
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="window.location.href='About.html'">Show more</button>
                 </div>
             </div>
+
+            <div class="about-image">
+                <img src="images/Screenshot 2025-07-17 152613.png" alt="Students at New Cairo STEM School" class="about-img">
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- Staff Section -->
     <section id="campus" class="campus">
@@ -131,45 +138,7 @@
         </div>
     </section>
 
-    <!-- Academics Section -->
-    <!-- <section id="academics" class="academics">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Academic Programs</h2>
-                <p class="section-subtitle">Comprehensive STEM curriculum designed for excellence</p>
-            </div>
-            <div class="academics-grid">
-                <div class="academic-card">
-                    <div class="card-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h4>Science</h4>
-                    <p>Advanced courses in Physics, Chemistry, and Biology with hands-on laboratory experiences and research opportunities.</p>
-                </div>
-                <div class="academic-card">
-                    <div class="card-icon">
-                        <i class="fas fa-laptop-code"></i>
-                    </div>
-                    <h4>Technology</h4>
-                    <p>Computer Science, Programming, and Digital Innovation courses preparing students for the digital future.</p>
-                </div>
-                <div class="academic-card">
-                    <div class="card-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h4>Engineering</h4>
-                    <p>Engineering principles, design thinking, and problem-solving methodologies across multiple disciplines.</p>
-                </div>
-                <div class="academic-card">
-                    <div class="card-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h4>Mathematics</h4>
-                    <p>Advanced mathematics including calculus, statistics, and mathematical modeling for real-world applications.</p>
-                </div>
-            </div>
-        </div>
-    </section> -->
+
 
     <!-- Admissions Section -->
     <section id="admissions" class="admissions">
@@ -187,45 +156,69 @@
     </section>
 
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <div class="footer-logo">
-                        <img src="images/logo.png" alt="New Cairo STEM School" class="footer-logo-img">
-                        <h3>New Cairo STEM School</h3>
-                    </div>
-                    <p>Excellence in Science, Technology, Engineering & Mathematics education, preparing students for a bright future in STEM fields.</p>
+   <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            
+            <!-- اللوجو -->
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="New Cairo STEM School" class="footer-logo-img">
+                    <h3>New Cairo STEM School</h3>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="Academics.html">Academics & Skills</a></li>
-                        <li><a href="Admissions.html">Admissions</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="Achievments.html">Students Acheivments</a></li>
-                        <li><a href="Staff.html">Staff</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> New Cairo, Egypt</p>
-
-                        <p><i class="fas fa-envelope"></i> newcairosch@stemnewcairo.moe.edu.eg</p>
-                    </div>
-                </div>
+                <p>Excellence in Science, Technology, Engineering & Mathematics education, preparing students for a bright future in STEM fields.</p>
             </div>
-            <div class="footer-bottom">
-                <div class="footer-credits">
-                    <p>&copy; 2025 New Cairo STEM School. All rights reserved.</p>
-                </div>
+
+            <!-- الروابط -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About</a></li>
+                    <li><a href="Academics.html">Academics & Skills</a></li>
+                    <li><a href="Admissions.html">Admissions</a></li>
+                    <li><a href="Achievments.html">Students Achievements</a></li>
+                    <li><a href="Staff.html">Staff</a></li>
+                    <li><a href="photos.html">Photo Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- معلومات التواصل -->
+            <!-- Contact Info -->
+<div class="footer-section">
+    <h4>Contact Info</h4>
+    <div class="footer-contact">
+        <p>
+            <i class="fas fa-map-marker-alt"></i> 
+            <a href="https://www.google.com/maps/place/%D9%85%D8%AF%D8%B1%D8%B3%D8%A9+%D8%A7%D9%84%D9%85%D8%AA%D9%81%D9%88%D9%82%D9%8A%D9%86+%D9%81%D9%8A+%D8%A7%D9%84%D8%B9%D9%84%D9%88%D9%85+%D9%88%D8%A7%D9%84%D8%AA%D9%83%D9%86%D9%88%D9%84%D9%88%D8%AC%D9%8A%D8%A7%E2%80%AD/@30.0290372,31.4266749,17z/data=!3m1!4b1!4m6!3m5!1s0x14583d04f490b673:0xf0d4baef2536850b!8m2!3d30.0290372!4d31.4266749!16s%2Fg%2F11s7y_sqv6?entry=tts&g_ep=EgoyMDI1MDcxMy4wIPu8ASoASAFQAw%3D%3D&skid=bd41539d-509f-4e99-953e-8ed531167d8a" 
+               target="_blank" 
+               style="color: white; text-decoration: none;">
+               New Cairo, Egypt
+            </a>
+        </p>
+        <p>
+            <i class="fas fa-envelope"></i> 
+            <a href="mailto:newcairosch@stemnewcairo.moe.edu.eg" 
+               style="color: white; text-decoration: none;">
+               newcairosch@stemnewcairo.moe.edu.eg
+            </a>
+        </p>
+    </div>
+</div>
+
+        </div>
+
+        <!-- الحقوق -->
+        <div class="footer-bottom">
+            <div class="footer-credits">
+                <p>&copy; 2025 New Cairo STEM School. All rights reserved.</p>
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
+
 
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox">
