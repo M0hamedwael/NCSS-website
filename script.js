@@ -14,6 +14,7 @@ function initNavigation() {
     const navMenu = document.getElementById('nav-menu');
     const navLinks = document.querySelectorAll('.nav-link');
     const navbar = document.getElementById('navbar');
+    const logoText = document.querySelectorAll('.logo-text');
 
     // Mobile menu toggle
     hamburger.addEventListener('click', function() {
@@ -32,12 +33,26 @@ function initNavigation() {
     // Navbar scroll effect
     window.addEventListener('scroll', function() {
         if (window.scrollY > 100) {
+            navLinks.forEach(Links => {Links.classList.add('scrolled');});
+            logoText.forEach(text => {text.classList.add('scrolled')});
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
+            navLinks.forEach(Links => {Links.classList.remove('scrolled');});
+            logoText.forEach(text => {text.classList.remove('scrolled')});
         }
     });
-
+    window.addEventListener('pageshow', function(){
+                if (window.scrollY > 100) {
+            navLinks.forEach(Links => {Links.classList.add('scrolled');});
+            logoText.forEach(text => {text.classList.add('scrolled')});
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+            navLinks.forEach(Links => {Links.classList.remove('scrolled');});
+            logoText.forEach(text => {text.classList.remove('scrolled')});
+        }
+    });
     // Active navigation link based on scroll position
     window.addEventListener('scroll', function() {
         let current = '';
@@ -837,4 +852,7 @@ if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
 // Initialize performance monitoring
 initPerformanceMonitoring();
+
+// Hero Section Slideshow
+// Hero Section Slideshow (slide from right)
 
