@@ -1396,7 +1396,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     width: 100%;
     height: 100vh; /* يخلي السيكشن مليان الشاشة */
-    overflow: hidden;
+
   }
   
   .hero-video {
@@ -1420,32 +1420,10 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .hero-text {
-    position: relative;
-    z-index: 1;
-    color: white;
-    text-align: center;
-    top: 40%;
-    transform: translateY(-50%);
     margin-top: 100px;
+  text-align: center
   }
   
-  .hero-text h1 {
-    font-size: 6em;
-    font-weight: 700;
-    line-height: 1.2;
-    font-family: 'Oswald', sans-serif;
-
-  }
-.ncss{
-    font-size: 4em;
-}
-.ncss , .h1-hero {
-    font-size: 100px; 
-    font-weight: 700;
-    color: transparent; 
-    -webkit-text-stroke: 2px #F7F1C5; 
-    text-align: center;
-  }
 
 
 /* خلي المؤسسين في شبكة */
