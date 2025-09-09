@@ -1,5 +1,13 @@
-/* Reset and Base Styles */
+@font-face {
+    font-family: 'emad-diana_extraregular';
+    src: url('emad-dianaextra-regular-webfont.woff2') format('woff2'),
+         url('emad-dianaextra-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}/* Reset and Base Styles */
 * {
+    font-family: 'emad-diana_extraregular', sans-serif !important;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -31,7 +39,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .section-title {
     font-size: 2.5rem;
-    color: #1B4B5A;
+    color: #094d6b;
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -61,13 +69,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #1B4B5A, #2A6B7A);
+    background: linear-gradient(135deg, #094d6b, #2A6B7A);
     color: white;
-    border-color: #1B4B5A;
+    border-color: #094d6b;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(135deg, #2A6B7A, #1B4B5A);
+    background: linear-gradient(135deg, #2A6B7A, #094d6b);
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(27, 75, 90, 0.3);
 }
@@ -80,7 +88,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-secondary:hover {
     background: #F5E6B8;
-    color: #1B4B5A;
+    color: #094d6b;
     border-color: #F5E6B8;
 }
 
@@ -97,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.98);
+    background: #094d6b;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     padding: 0.5rem 0;
 }
@@ -124,9 +132,13 @@ h1, h2, h3, h4, h5, h6 {
     transition: transform 0.3s ease;
 }
 .nav-link.active {
-  color: #1B4B5A;
+  color: #094d6b;
   font-weight: bold;
-  border-bottom: 2px solid #1B4B5A;
+  border-bottom: 2px solid #094d6b;
+}
+.nav-link.scrolled.active{
+    color:#fdf0c3;
+    border-bottom-color: #fdf0c3;
 }
 
 .logo:hover {
@@ -137,10 +149,13 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 1.2rem;
-    color: #1B4B5A;
+    color: #094d6b;
     white-space: nowrap;
-    padding-right: ;
     margin-right: 100px;
+}
+.logo-text.scrolled{
+    color: #fdf0c3;
+    transition: all 0.3s ease; 
 }
 
 .nav-menu {
@@ -157,8 +172,16 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
+.nav-link.scrolled{
+     color: #fdf0c3;
+}
+
 .nav-link:hover{
-    color: #1B4B5A;
+    color: #094d6b;
+}
+
+.nav-link.scrolled:hover{
+    color: #fdf0c3;
 }
 
 .nav-link::after {
@@ -168,8 +191,12 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     width: 0;
     height: 2px;
-    background: #1B4B5A;
+    background: #094d6b;
     transition: width 0.3s ease;
+}
+
+.nav-link.scrolled::after{
+    background: #fdf0c3;
 }
 
 .nav-link:hover::after,
@@ -186,7 +213,7 @@ h1, h2, h3, h4, h5, h6 {
 .bar {
     width: 25px;
     height: 3px;
-    background: #1B4B5A;
+    background: #094d6b;
     margin: 3px 0;
     transition: 0.3s;
 }
@@ -316,7 +343,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .about-text h3 {
     font-size: 2rem;
-    color: #1B4B5A;
+    color: #094d6b;
     margin-bottom: 1.5rem;
 }
 
@@ -339,7 +366,7 @@ h1, h2, h3, h4, h5, h6 {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #1B4B5A;
+    color: #094d6b;
     display: block;
 }
 
@@ -450,7 +477,7 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(135deg, #1B4B5A, #D4AF37);
+    background: linear-gradient(135deg, #094d6b, #D4AF37);
 }
 
 .academic-card:hover {
@@ -460,13 +487,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-icon {
     font-size: 3rem;
-    color: #1B4B5A;
+    color: #094d6b;
     margin-bottom: 1.5rem;
 }
 
 .academic-card h4 {
     font-size: 1.5rem;
-    color: #1B4B5A;
+    color: #094d6b;
     margin-bottom: 1rem;
 }
 
@@ -491,7 +518,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .admissions-info h3 {
     font-size: 2rem;
-    color: #1B4B5A;
+    color: #094d6b;
     margin-bottom: 1.5rem;
 }
 
@@ -565,7 +592,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-icon {
-    background: linear-gradient(135deg, #1B4B5A, #2A6B7A);
+    background: linear-gradient(135deg, #094d6b, #2A6B7A);
     color: white;
     width: 50px;
     height: 50px;
@@ -578,12 +605,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .contact-details h4 {
-    color: #1B4B5A;
+    color: #094d6b;
     margin-bottom: 0.5rem;
 }
 
 .map-link {
-    color: #1B4B5A;
+    color: #094d6b;
     text-decoration: none;
     font-weight: 500;
 }
@@ -619,7 +646,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #1B4B5A;
+    border-color: #094d6b;
 }
 
 .form-group textarea {
@@ -629,7 +656,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Footer */
 .footer {
-    background: #1B4B5A;
+    background: #094d6b;
     color: white;
     padding: 50px 0 20px;
 }
@@ -959,7 +986,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-title {
-    background: linear-gradient(-45deg, #1B4B5A, #2A6B7A, #D4AF37, #F5E6B8);
+    background: linear-gradient(-45deg, #094d6b, #2A6B7A, #D4AF37, #F5E6B8);
     background-size: 400% 400%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1105,7 +1132,7 @@ h1, h2, h3, h4, h5, h6 {
     left: -2px;
     right: -2px;
     bottom: -2px;
-    background: linear-gradient(45deg, #1B4B5A, #2A6B7A, #D4AF37, #F5E6B8);
+    background: linear-gradient(45deg, #094d6b, #2A6B7A, #D4AF37, #F5E6B8);
     border-radius: 17px;
     z-index: -1;
     opacity: 0;
@@ -1185,7 +1212,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Gradient Border Animation for Cards */
 .academic-card::before {
-    background: linear-gradient(45deg, #1B4B5A, #2A6B7A, #D4AF37, #F5E6B8, #1B4B5A);
+    background: linear-gradient(45deg, #094d6b, #2A6B7A, #D4AF37, #F5E6B8, #094d6b);
     background-size: 400% 400%;
     animation: gradientBorder 3s ease infinite;
 }
@@ -1247,7 +1274,7 @@ h1, h2, h3, h4, h5, h6 {
     right: 30px;
     width: 50px;
     height: 50px;
-    background: linear-gradient(135deg, #1B4B5A, #2A6B7A);
+    background: linear-gradient(135deg, #094d6b, #2A6B7A);
     color: white;
     border: none;
     border-radius: 50%;
@@ -1378,15 +1405,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 #admissions-btn {
     background-color: white;
-    border: 2px solid #1B4B5A;
+    border: 2px solid #094d6b;
     height: 50px;
     margin-left: 80%;
     border-radius: 0px;
     width: 250px;
     cursor: pointer;
-    color: #1B4B5A;
+    color: #094d6b;
     font-size: 16px;
-    background-image: linear-gradient(135deg, #1B4B5A, #2A6B7A);
+    background-image: linear-gradient(135deg, #094d6b, #2A6B7A);
     background-size: 0% 100%;
     background-repeat: no-repeat;
     background-position: left;
@@ -1563,8 +1590,8 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 .nav-link.active {
-  color: #1B4B5A;
-  border-bottom: 2px solid #1B4B5A;
+  color: #094d6b;
+  border-bottom: 2px solid #094d6b;
   font-weight: bold;
 }
 
@@ -1575,12 +1602,12 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   width: 0;
   height: 2px;
-  background: #1B4B5A;
+  background: #094d6b;
   transition: width 0.3s ease;
 }
 
-.nav-link:hover { color: #1B4B5A; }
+.nav-link:hover { color: #094d6b; }
 
 /* المهمتين دول */
-.nav-link.active { color: #1B4B5A; }
+.nav-link.active { color: #094d6b; }
 .nav-link.active::after { width: 100%; }
