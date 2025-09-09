@@ -1644,6 +1644,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     vertical-align: middle;
 }
+/*Staff page*/
 .staff-header{
     font-size: 2.5rem;
     color: #094d6b;
@@ -1763,3 +1764,76 @@ h1, h2, h3, h4, h5, h6 {
 .staff-member.active{
     width:680px
 }
+
+/*Achievements page*/
+#studentachievements{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.achievements-header{
+    font-size: 2.8rem;
+    color: #094d6b;
+}
+.achievement {
+  background: white;
+  margin: 1rem 0;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 90%;
+}
+.achievement:hover{
+    transform: translateY(-2px);
+}
+
+.achievement-header {
+  padding: 1rem;
+  font-weight: bold;
+  background:#094d6b;
+  color: white;
+  transition: all 0.5s ease;
+  font-size: 1.8rem;
+}
+
+
+.achievement-details {
+  height: 0;              /* hidden by default */
+  overflow: hidden;
+  padding: 0 1rem;
+  background: #f9f9f9;
+  transition: all 0.4s ease, padding 0.4s ease;
+  display: flex;
+  flex-direction: row;
+}
+
+/* When active, expand */
+.achievement.active .achievement-details {
+  height: 300px;          /* adjust if content is bigger */
+  padding: 1rem;
+}
+.achievement-img{
+    margin-right: 10px;
+    width: 450px;
+}
+.achievement-txt{
+    overflow: scroll;
+    height: 486px;
+    padding-bottom: 10px;
+}
+
+
+/* Scrollbar width */
+
+.achievement-txt::-webkit-scrollbar {
+  width: 10px;
+}
+.achievement-txt::-webkit-scrollbar-track {
+  background: #f9f9f9 !important;
+}
+.achievement-txt::-webkit-scrollbar-thumb {
+  background: #094d6b;
+}
+
