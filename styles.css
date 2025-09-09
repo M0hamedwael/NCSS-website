@@ -31,6 +31,28 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
+/* custom scrollbar*/
+::-webkit-scrollbar-track {
+  background: linear-gradient(
+    to bottom,
+    #094d6b 0 66.5px,   /* navbar height */
+    #094d6b 66.5px 100%
+
+  );
+}
+
+/* Scrollbar width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 200px;
+}
+
+/* Thumb (the draggable handle) */
+::-webkit-scrollbar-thumb {
+  background: #094d6b; 
+  border-radius: 10px;
+  margin: 0 20px 0 20px;
+}
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
@@ -102,7 +124,7 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     padding: 1rem 0;
 }
 
