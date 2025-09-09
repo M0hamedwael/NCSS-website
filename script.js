@@ -54,3 +54,10 @@ function activeLinkInit(){
     }
   });
 };
+function handleStaffclick(e){
+  const object = e.target.closest(".staff-member")
+  const staffitem = e.target.closest('.staff-item')
+  staffitem.classList.toggle('active')
+  object.classList.toggle('active')
+  object.children[1].classList.toggle('active')
+}
