@@ -1,5 +1,14 @@
-const hamburger = document.getElementById("hamburger");
-const navMenu = document.getElementById("nav-menu");
+document.addEventListener('DOMContentLoaded', () =>{
+  navigationInit()
+  activeLinkInit()
+});
+
+function navigationInit(){
+const navbar = document.getElementById("navbar")
+const navitem = document.querySelectorAll(".nav-link")
+const logotext = document.querySelectorAll(".logo-text")
+const bar = document.querySelectorAll(".bar");
+let ticking = false
 
 hamburger.addEventListener("click", () => {
   navMenu.classList.toggle("active");
@@ -7,15 +16,24 @@ hamburger.addEventListener("click", () => {
 });
 
 window.addEventListener("scroll", function() {
-  const navbar = document.querySelector(".navbar");
-  if (window.scrollY > 0) {
+
+  if (this.window.scrollY) {
     navbar.classList.add("scrolled");
+    navitem.forEach(item => {item.classList.add("scrolled")});
+    logotext.forEach(item => {item.classList.add("scrolled")});
+    bar.forEach(item => {item.classList.add("scrolled")});
   } else {
     navbar.classList.remove("scrolled");
+    navitem.forEach(item => {item.classList.remove("scrolled")});
+    logotext.forEach(item => {item.classList.remove("scrolled")});
+    bar.forEach(item => {item.classList.remove("scrolled")});
   }
 });
+};
 
-document.addEventListener("DOMContentLoaded", () => {
+function activeLinkInit(){
+  const hamburger = document.getElementById("hamburger");
+  const navMenu = document.getElementById("nav-menu");
   // اسم الصفحة الحالي (مثلاً about.html)
   let currentPage = window.location.pathname.split("/").pop().toLowerCase();
 
@@ -35,4 +53,4 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("✅ Active applied on:", linkHref);
     }
   });
-});
+};
