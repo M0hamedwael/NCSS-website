@@ -43,7 +43,7 @@ body {
 
 /* Scrollbar width */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 11px;
   height: 200px;
 }
 
@@ -52,7 +52,12 @@ body {
   background: #2A6B7A; 
   border-radius: 10px;
   margin: 0 20px 0 20px;
-  border: 3px solid #094d6b;
+  border: 3.5px solid #094d6b;
+  transition: all 0.7s ease;
+}
+::-webkit-scrollbar-thumb:hover{
+    border-width: 3px;
+    cursor: pointer;
 }
 
 /* Typography */
@@ -1669,13 +1674,7 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: #094d6b solid;
     padding: 0 10px 0 10px;
 }
-.staff-arrow{
-    font-size: 3rem;
-    position: absolute;
-    top:-35px;
-    margin-left: 10px;
-    
-}
+
 .staff-section{
     margin: 50px 0 50px 0;
     overflow: hidden;
@@ -1745,8 +1744,8 @@ h1, h2, h3, h4, h5, h6 {
     transform: translate( -200px, -240px);
     width: 400px;
     height: 220px;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
     transition: all 0.5s ease;
     box-shadow: #0000002c 0px 0px 5px;
     padding: 5px 0 0 20px;
@@ -1765,17 +1764,18 @@ h1, h2, h3, h4, h5, h6 {
     width:680px
 }
 
-/*Achievements page*/
-#studentachievements{
+/*Academics extracurriculars page*/
+#Extracurriculars{
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
 }
-.achievements-header{
+.extracs-header{
     font-size: 2.8rem;
     color: #094d6b;
 }
-.achievement {
+.extrac {
   background: white;
   margin: 1rem 0;
   border-radius: 2px;
@@ -1785,11 +1785,11 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.3s ease;
   width: 90%;
 }
-.achievement:hover{
-    transform: translateY(-2px);
+.extrac:hover{
+    transform: translateY(-8px);
 }
 
-.achievement-header {
+.extrac-header {
   padding: 1rem;
   font-weight: bold;
   background:#094d6b;
@@ -1799,7 +1799,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-.achievement-details {
+.extrac-details {
   height: 0;              /* hidden by default */
   overflow: hidden;
   padding: 0 1rem;
@@ -1810,15 +1810,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* When active, expand */
-.achievement.active .achievement-details {
+.extrac.active .extrac-details {
   height: 300px;          /* adjust if content is bigger */
   padding: 1rem;
 }
-.achievement-img{
+.extrac-img{
     margin-right: 10px;
     width: 450px;
 }
-.achievement-txt{
+.extrac-txt{
     overflow: scroll;
     height: 486px;
     padding-bottom: 10px;
@@ -1827,13 +1827,86 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Scrollbar width */
 
-.achievement-txt::-webkit-scrollbar {
+.extrac-txt::-webkit-scrollbar {
   width: 10px;
 }
-.achievement-txt::-webkit-scrollbar-track {
+.extrac-txt::-webkit-scrollbar-track {
   background: #f9f9f9 !important;
 }
-.achievement-txt::-webkit-scrollbar-thumb {
+.extrac-txt::-webkit-scrollbar-thumb {
   background: #094d6b;
+}
+
+/*student Achievements*/
+#studentachievements{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+.achievements-header{
+    font-size: 2.8rem;
+    color: #094d6b;
+}
+.header-img {
+      width: 200px;
+      height: auto;
+      margin-top: 10px;
+}
+
+.grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding: 20px;
+      align-items: st;
+}
+
+
+.card {
+      background-color: #f3f3f3;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+      margin: 0;
+}
+
+.card-content {
+      height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+}
+
+.card.expanded .card-content {
+      height: 200px; /* enough for content */
+}
+.image-header{
+    position: relative;
+    width: 100%;   /* fill column width */
+    height: auto;
+    display: block;
+}
+.date-tag {
+      position: absolute;
+      background: #004aad;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 6px 10px;
+      top: 10px;
+      left: 10px;
+      border-radius: 4px;
+}
+.image-header img {
+  width: 100%;   /* fill column width */
+  height: auto;
+  display: block;
 }
 

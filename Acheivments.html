@@ -38,44 +38,49 @@
   </div>
 </nav>
 <section id="studentachievements">
-    <h1 class="achievements-header">Students’ achievements</h1>
-    <div class="achievement" onclick="toggleAchievement(event)">
-      <div class="achievement-header">
-        IEEE - second place
-      </div>
-      <div class="achievement-details">
-        <div class="achievement-img"><img src="" alt="IEEE team"></div>
-            <div class="achievement-txt">
-            <p><strong>Student(s):</strong> Ahmed Mohamed (Grade 11)</p>
-            <p><strong>Year:</strong> 2024</p>
-            <p><strong>Description:</strong>    This is some placeholder text to show how scrolling works inside a small box.  
-    Keep adding more lines of text here until the content overflows the height you set.  
-    Then, the scrollbar will appear just for this section, without affecting the whole page.  
-    You can use this for achievements, descriptions, or anything that needs limited space.  
-    Add as much as you like…  
-    Line 5…  
-    Line 6…  
-    Line 7…  
-    Line 8…  </p>
-      <p>
-    Welcome to the placeholder section of this website. This is simply demo content meant to fill space and show how a scrollable area behaves. Imagine this text describing a student's achievement, a project highlight, or even a long article preview.  
-    <br><br>
-    Line after line, the text continues so that you can clearly see the scrolling in action. By adding enough words here, the container will overflow and trigger the vertical scrollbar. This makes it easy to keep a section neat and compact while still allowing the visitor to explore all the details inside.  
-    <br><br>
-    Placeholder paragraph two: The idea here is to generate enough content that cannot possibly fit inside the set height of the container. In a real website, this might represent a timeline of awards, competition results, or event details that would otherwise stretch the page too far. Keeping it scrollable helps with layout and focus.  
-    <br><br>
-    Placeholder paragraph three: Scrolling is smooth, contained, and independent of the rest of the page. The background stays fixed, the padding keeps the text comfortable, and the border visually separates this section from other elements. You could even add custom styling to make the scrollbar match your site’s theme.  
-    <br><br>
-    More filler: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.  
-    <br><br>
-    And it goes on… Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus. Nulla porttitor accumsan tincidunt.  
-    <br><br>
-    Even longer text here to ensure scrolling is obvious. A visitor can scroll through all the achievements one by one. Think of this as a dedicated mini-scroll area inside a clean page layout.  
-    <br><br>
-    End of placeholder content.
-  </p>
+    <h1 class="achievements-header">Student Achievements</h1>
+        <div class="grid-container">
+
+      <div class="card-wrapper">
+        <div class="card" onclick="handleexpanded(event)">
+            <div class="card-header">
+                <div class="image-header">
+                <img src="https://placehold.co/600x400" alt="winners pov">
+                <div class="date-tag">2023</div> 
+            </div>
+                <h3>placeholder</h3>
+            </div>
+          <div class="card-content">
+            <p>This is some description for card 1. It expands individually when clicked.</p>
+          </div>
         </div>
       </div>
+
+      <div class="card-wrapper">
+        <div class="card" onclick="handleexpanded(event)">
+            <div class="card-header">
+                <div class="image-header">
+                <img src="https://placehold.co/600x400" alt="winners pov">
+                <div class="date-tag">2023</div> 
+            </div>
+            
+          <h3>Card 2</h3>
+          <div class="card-content">
+            <p>This is some description for card 2. It expands independently from other cards.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-wrapper">
+        <div class="card" onclick="handleexpanded(event)">
+          <h3>Card 3</h3>
+          <div class="card-content">
+            <p>This is some description for card 3. Each card manages its own height.</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
     </div>
     
 </section>

@@ -63,8 +63,12 @@ function handleStaffclick(e){
   object.children[1].classList.toggle('active')
 }
 
-// Achievements page
+// academics page
     function toggleAchievement(e) {
   const achievement = e.currentTarget; // the div with class="achievement"
   achievement.classList.toggle("active");
+}
+function handleexpanded(event){
+  const card = event.target.closest('.card')
+   card.classList.toggle('expanded');
 }
