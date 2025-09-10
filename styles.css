@@ -1859,7 +1859,6 @@ h1, h2, h3, h4, h5, h6 {
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       padding: 20px;
-      align-items: st;
 }
 
 
@@ -1869,7 +1868,7 @@ h1, h2, h3, h4, h5, h6 {
       cursor: pointer;
       transition: all 0.3s ease;
       overflow: hidden;
-      border-radius: 10px;
+      border-radius: 2px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
@@ -1895,8 +1894,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .date-tag {
       position: absolute;
-      background: #004aad;
-      color: white;
+      background: #094d6b;
+      color: #F5E6B8;
       font-size: 14px;
       font-weight: bold;
       padding: 6px 10px;
@@ -1909,4 +1908,7 @@ h1, h2, h3, h4, h5, h6 {
   height: auto;
   display: block;
 }
-
+.card-header{
+    color: #094d6b;
+    text-decoration: solid;
+}
