@@ -1,0 +1,86 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Achievements</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, textarea { display: block; margin: 5px 0; width: 300px; }
+    button { margin: 5px 0; padding: 5px 10px; }
+    .list { margin-top: 20px; }
+    .ach-item { border: 1px solid #ccc; padding: 10px; margin: 5px 0; border-radius: 6px; }
+    .ach-item p { white-space: pre-line; } /* يحافظ على تقسيم السطور */
+  </style>
+</head>
+<body>
+  <h1>Admin Panel - Manage Achievements</h1>
+  
+  <h2>Add Achievement</h2>
+  <input id="title" placeholder="Title">
+  <input id="year" placeholder="Year">
+  <input id="image" placeholder="Image URL (optional)">
+  <textarea id="desc" placeholder="Description"></textarea>
+  <button onclick="addAchievement()">Add</button>
+
+  <h2>Current Achievements</h2>
+  <div class="list" id="ach-list"></div>
+
+  <h2>Delete by Index</h2>
+  <input type="number" id="delete-id" placeholder="Index">
+  <button onclick="deleteAchievement()">Delete</button>
+
+  <script>
+    function loadAchievements() {
+      return JSON.parse(localStorage.getItem("achievements") || "[]");
+    }
+
+    function saveAchievements(data) {
+      localStorage.setItem("achievements", JSON.stringify(data));
+      renderList();
+    }
+
+    function addAchievement() {
+      let title = document.getElementById("title").value;
+      let year = document.getElementById("year").value;
+      let image = document.getElementById("image").value;
+      let desc = document.getElementById("desc").value;
+
+      if (!title || !desc) return alert("Title and description required");
+
+      let data = loadAchievements();
+      data.push({ title, year, image, desc });
+      saveAchievements(data);
+
+      alert("Achievement added!");
+    }
+
+    function deleteAchievement() {
+      let id = document.getElementById("delete-id").value;
+      let data = loadAchievements();
+      if (id >= 0 && id < data.length) {
+        data.splice(id, 1);
+        saveAchievements(data);
+        alert("Deleted!");
+      } else {
+        alert("Invalid index");
+      }
+    }
+
+    function renderList() {
+      let data = loadAchievements();
+      let list = document.getElementById("ach-list");
+      list.innerHTML = "";
+      data.forEach((a, i) => {
+        list.innerHTML += `
+          <div class="ach-item">
+            <b>${i}:</b> ${a.title} (${a.year})
+            <p>${a.desc}</p>
+          </div>
+        `;
+      });
+    }
+
+    window.onload = renderList;
+  </script>
+</body>
+</html>

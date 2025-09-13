@@ -39,78 +39,48 @@
 </nav>
 <section id="studentachievements">
     <h1 class="achievements-header">Student Achievements</h1>
-        <div class="grid-container">
-            <!--Achievement card-->
+        <div class="grid-container" id="achievements-container">
+    <!-- Cards will be injected here by JS -->
+</div>
 
-           <div class="card-wrapper">
-                <div class="card" id="openModal" onclick="handleAchievementOverlay(event)">
-                    <div class="card-header">
-                        <div class="image-header">
-                            <img src="https://placehold.co/600x400" alt="winners pov">
-                            <div class="date-tag">2023</div> 
-                        </div>
-                        <h3>placeholder</h3>
+<script>
+function renderAchievements() {
+    let data = JSON.parse(localStorage.getItem("achievements") || "[]");
+    let container = document.getElementById("achievements-container");
+    container.innerHTML = "";
+
+    data.forEach((ach, index) => {
+        container.innerHTML += `
+        <div class="card-wrapper">
+            <div class="card" onclick="handleAchievementOverlay(event)">
+                <div class="card-header">
+                    <div class="image-header">
+                        <img src="${ach.image || 'https://placehold.co/600x400'}" alt="Achievement">
+                        <div class="date-tag">${ach.year || 'N/A'}</div> 
                     </div>
+                    <h3>${ach.title}</h3>
                 </div>
-                  <div class="achievement-overlay" id="achievement-overlay" onclick="handleoverlayclose(event)">
-                    <div class="modal" id="modalBox">
+            </div>
+            <div class="achievement-overlay" onclick="handleoverlayclose(event)">
+                <div class="modal">
                     <div class="modal-header">
-                        <img src="https://placehold.co/900x400" alt="Popup Image">
-                        <span class="achievement-close-btn" id="achievement-closeBtn" onclick="handleAchievementclose(event)">&gt;</span>
+                        <img src="${ach.image || 'https://placehold.co/900x400'}" alt="Popup Image">
+                        <span class="achievement-close-btn" onclick="handleAchievementclose(event)">&gt;</span>
                     </div>
                     <div class="modal-content">
-                        <h2>عنوان المعلومات</h2>
-                        <p>
-                        THis line has been made excessively very long to make us able to view the scroll on this page
-                        Why is it this long you may ask that is to make able to view the scroll on this page
-                        </p>
-                        <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non arcu et eros 
-                        scelerisque feugiat. Praesent ac velit nec odio facilisis condimentum. Sed sit 
-                        amet risus vitae urna tristique malesuada. Nulla facilisi. Morbi lacinia 
-                        condimentum odio, vel placerat eros.
-                        </p>
-                        <p>
-                        Curabitur pharetra ante sit amet dolor hendrerit, a fringilla ipsum cursus. 
-                        Integer porta leo quis eros sollicitudin, at laoreet odio malesuada.
-                        </p>
-                    </div>
+                        <h2>${ach.title}</h2>
+                        <p style="white-space: pre-line;">${ach.desc}</p>
                     </div>
                 </div>
             </div>
+        </div>
+        `;
+    });
+}
 
+window.onload = renderAchievements;
+</script>
 
-           
-
-            <div class="card-wrapper">
-                <div class="card" id="openModal" onclick="handleAchievementOverlay(event)">
-                    <div class="card-header">
-                        <div class="image-header">
-                            <img src="https://placehold.co/600x400" alt="winners pov">
-                            <div class="date-tag">2023</div> 
-                        </div>
-                        <h3>placeholder</h3>
-                    </div>
-                </div>
-                  <div class="achievement-overlay" id="achievement-overlay" onclick="handleoverlayclose(event)">
-                    <div class="modal" id="modalBox">
-                    <div class="modal-header">
-                        <img src="https://placehold.co/900x400" alt="Popup Image">
-                        <span class="achievement-close-btn" id="achievement-closeBtn" onclick="handleAchievementclose(event)">&gt;</span>
-                    </div>
-                    <div class="modal-content">
-                        <h2>Title</h2>
-                        <p>
-                          
-                        </p>
-                        
-                    </div>
-                    </div>
-                </div>
-            </div>
-
-
-    </div>
     
 </section>
 
