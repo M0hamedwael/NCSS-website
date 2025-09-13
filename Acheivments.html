@@ -37,7 +37,6 @@
     </div>
   </div>
 </nav>
-<section id="studentachievements">
     <h1 class="achievements-header">Student Achievements</h1>
         <div class="grid-container" id="achievements-container">
     <!-- Cards will be injected here by JS -->
@@ -73,7 +72,7 @@ async function fetchAndRenderAchievements() {
         const colIndex = {
             title: headers.indexOf("The title"),
             desc: headers.indexOf("Description"),
-            image: headers.indexOf("upload image (16:9)"),
+            image: headers.indexOf("img url"),
             year: headers.indexOf("Year"),
         };
 
