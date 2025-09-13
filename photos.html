@@ -40,85 +40,93 @@
 </nav>
 
   <section class="photo-gallery">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Campus</h2>
-      <p class="section-subtitle">Explore school life and activities</p>
+  <div class="container" id="campus-container">
+    <div class="campus-header" >
+        <h2 class="section-title" id="campus-title">Campus</h2>
+        <p class="section-subtitle" id="campus-subtitle">Explore school life and activities</p>
+      
+        <div id="campus-banner">
+                <img src="images/gallery3.jpg">
+        </div>
     </div>
+</div>
 
+</section>
+<section class="school-overview">
+    <div class="cpage-text" id="so-text">
+        <h1>
+            Overview
+        </h1>
+        <p>
+            Life at NCSS is more than just classroom and labs, it’s a full experience. 
+            Students live on campus beside the school facility for the entirety of their high school years, 
+            creating a close-knit community that blends academics, activities, and friendship. 
+        </p>
+    </div>
+        <div class="slider">
+            <div class="slides">
+                <img src="https://placehold.co/600x400/ffff44/000?text=Slider2+Slide1">
+                <img src="https://placehold.co/600x400/ff00ff/fff?text=Slider2+Slide2">
+                <img src="https://placehold.co/600x400/00ffff/000?text=Slider2+Slide3">
+                <img src="https://placehold.co/600x400/999999/fff?text=Slider2+Slide4">
+            </div>
+            <div class="controls"></div>
+        </div>
+</section>
+<section class="labs">
     <div class="slider">
-      <div class="slides">
-        <div class="slide"><img src="images/gallery1.jpg" alt="Gallery 1"></div>
-        <div class="slide"><img src="images/gallery2.jpg" alt="Gallery 2"></div>
-        <div class="slide"><img src="images/gallery3.jpg" alt="Gallery 3"></div>
-        <div class="slide"><img src="images/gallery4.jpg" alt="Gallery 4"></div>
-        <div class="slide"><img src="images/gallery5.jpg" alt="Gallery 5"></div>
-        <div class="slide"><img src="images/gallery6.jpg" alt="Gallery 6"></div>
-        <div class="slide"><img src="images/gallery7.jpg" alt="Gallery 7"></div>
-        <div class="slide"><img src="images/gallery8.jpg" alt="Gallery 8"></div>
-        <div class="slide"><img src="images/gallery10.jpg" alt="Gallery 10"></div>
-        <div class="slide"><img src="images/gallery11.jpg" alt="Gallery 11"></div>
-        <div class="slide"><img src="images/gallery12.jpg" alt="Gallery 12"></div>
-        <div class="slide"><img src="images/gallery13.jpg" alt="Gallery 13"></div>
-      </div>
-
-      <!-- arrows -->
-      <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-      <button class="next" onclick="moveSlide(1)">&#10095;</button>
+            <div class="slides">
+                <img src="https://placehold.co/600x400/ffff44/000?text=Slider2+Slide1">
+                <img src="https://placehold.co/600x400/ff00ff/fff?text=Slider2+Slide2">
+                <img src="https://placehold.co/600x400/00ffff/000?text=Slider2+Slide3">
+                <img src="https://placehold.co/600x400/999999/fff?text=Slider2+Slide4">
+            </div>
+            <div class="controls"></div>
+        </div>
+        <div class="cpage-text" id="lab-text">
+        <h1>
+            Labs & Facilities
+        </h1>
+        <p>
+            Students have access to a variety of specialized labs to ensure interactive learning experience including:
+            <ul style="padding-left: 40px;color: #555;">
+                <li>
+                    Physics, Chemistry, Biology, and Geology labs.
+                </li>
+                <li>
+                    A Language Lab for communication practice.
+                </li>
+                <li>
+                    A fully equipped Fabrication Lab (Fab Lab) and a robotics lab for innovation, engineering, and design.
+                </li>
+            </ul>
+        </p>
     </div>
-  </div>
+</section>
+<section class="dorms">
+
+        <div class="cpage-text" id="dorms-text">
+        <h1>
+            Dormitories
+        </h1>
+        <p>
+            Life at NCSS is more than just classroom and labs, it’s a full experience. 
+            Students live on campus beside the school facility for the entirety of their high school years, 
+            creating a close-knit community that blends academics, activities, and friendship. 
+        </p>
+    </div>
+        <div class="slider" id="dorms-slider">
+            <div class="slides">
+                <img src="https://placehold.co/600x400/ffff44/000?text=Slider2+Slide1">
+                <img src="https://placehold.co/600x400/ff00ff/fff?text=Slider2+Slide2">
+                <img src="https://placehold.co/600x400/00ffff/000?text=Slider2+Slide3">
+                <img src="https://placehold.co/600x400/999999/fff?text=Slider2+Slide4">
+            </div>
+            <div class="controls"></div>
+        </div>
+
 </section>
 
-<style>
-.slider {
-  position: relative;
-  max-width: 900px;
-  margin: auto;
-  overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  margin-bottom: 10px;
-}
-.slides {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-.slide {
-  min-width: 100%;
-}
-.slide img {
-  width: 100%;
-  border-radius: 0px;
-  display: block;
-}
-.prev, .next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(27, 75, 90, 0.7);
-  color: white;
-  border: none;
-  font-size: 2rem;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-.prev { left: 15px; }
-.next { right: 15px; }
-.prev:hover, .next:hover {
-  background: rgba(27, 75, 90, 1);
-}
-</style>
-
-<script>
-let currentSlide = 0;
-function moveSlide(step) {
-  const slides = document.querySelector(".slides");
-  const totalSlides = document.querySelectorAll(".slide").length;
-  currentSlide = (currentSlide + step + totalSlides) % totalSlides;
-  slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-}
-</script>
 
 
      <!-- Footer -->

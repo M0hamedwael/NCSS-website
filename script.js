@@ -72,3 +72,72 @@ function handleexpanded(event){
   const card = event.target.closest('.card')
    card.classList.toggle('expanded');
 }
+// campus slider
+class ImageSlider {
+      constructor(sliderElement) {
+        this.slider = sliderElement;
+        this.slides = this.slider.querySelector('.slides');
+        this.totalSlides = this.slides.children.length;
+        this.controls = this.slider.querySelector('.controls');
+        this.index = 0;
+        this.timeoutId = null;
+
+        this.initControls();
+        this.startAutoSlide();
+
+        window.addEventListener('resize', () => this.updateSlider());
+      }
+
+      getSlideWidth() {
+        return this.slides.children[0].clientWidth;
+      }
+
+      initControls() {
+        for (let i = 0; i < this.totalSlides; i++) {
+          const btn = document.createElement('div');
+          btn.classList.add('control-btn');
+          if (i === 0) btn.classList.add('active');
+          btn.addEventListener('click', () => {
+            this.index = i;
+            this.updateSlider();
+            this.resetAutoSlide();
+          });
+          this.controls.appendChild(btn);
+        }
+      }
+
+      updateSlider() {
+        const slideWidth = this.getSlideWidth();
+        this.slides.style.transform = `translateX(-${this.index * slideWidth}px)`;
+        this.controls.querySelectorAll('.control-btn').forEach((btn, i) => {
+          btn.classList.toggle('active', i === this.index);
+        });
+      }
+
+      nextSlide() {
+        this.index = (this.index + 1) % this.totalSlides;
+        this.updateSlider();
+      }
+
+      getRandomDelay(min = 3000, max = 4000) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      startAutoSlide() {
+        const run = () => {
+          this.nextSlide();
+          this.timeoutId = setTimeout(run, this.getRandomDelay());
+        };
+        this.timeoutId = setTimeout(run, this.getRandomDelay());
+      }
+
+      resetAutoSlide() {
+        clearTimeout(this.timeoutId);
+        this.startAutoSlide();
+      }
+    }
+
+    // Initialize all sliders
+    document.querySelectorAll('.slider').forEach(sliderEl => {
+      new ImageSlider(sliderEl);
+    });
