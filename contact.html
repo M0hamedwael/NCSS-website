@@ -12,32 +12,55 @@
 <body>
     <!-- Navigation -->
     
-    <nav class="navbar" id="navbar">
+    <!-- Skip Navigation Link for Accessibility -->
+    <a href="#main-content" class="skip-nav" tabindex="1">Skip to main content</a>
+    
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
   <div class="nav-container">
     <div class="nav-logo">
-      <img src="images/logo.png" alt="New Cairo STEM School" class="logo">
-      <span class="logo-text">New Cairo STEM School</span>
+      <a href="index.html" class="logo-link" aria-label="New Cairo STEM School - Home">
+        <img src="images/logo.png" alt="New Cairo STEM School Logo" class="logo">
+        <span class="logo-text">New Cairo STEM School</span>
+      </a>
     </div>
 
-    <ul class="nav-menu" id="nav-menu">
-      <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-      <li class="nav-item"><a href="About.html" class="nav-link">About</a></li>
-      <li class="nav-item"><a href="Academics.html" class="nav-link">Academics & Skills</a></li>
-      <li class="nav-item"><a href="Admissions.html" class="nav-link">Admissions</a></li>
-      <li class="nav-item"><a href="Acheivments.html" class="nav-link">Students Achievements</a></li>
-      <li class="nav-item"><a href="Staff.html" class="nav-link">Staff</a></li>
-      <li class="nav-item"><a href="photos.html" class="nav-link">Campus</a></li>
-      <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+    <ul class="nav-menu" id="nav-menu" role="menubar" aria-label="Main menu">
+      <li class="nav-item" role="none">
+        <a href="index.html" class="nav-link" role="menuitem">Home</a>
+      </li>
+      <li class="nav-item" role="none">
+        <a href="About.html" class="nav-link" role="menuitem">About</a>
+      </li>
+      <li class="nav-item" role="none">
+        <a href="Academics.html" class="nav-link" role="menuitem">Academics & Skills</a>
+      </li>
+      <li class="nav-item" role="none">
+        <a href="Admissions.html" class="nav-link" role="menuitem">Admissions</a>
+      </li>
+      <li class="nav-item" role="none">
+        <a href="Acheivments.html" class="nav-link" role="menuitem">Students Achievements</a>
+      </li>
+      <li class="nav-item" role="none">
+        <a href="Staff.html" class="nav-link" role="menuitem">Staff</a>
+      </li>
+      <li class="nav-item" role="none">
+        <a href="photos.html" class="nav-link" role="menuitem">Campus</a>
+      </li>
+      <li class="nav-item" role="none">
+        <a href="contact.html" class="nav-link" role="menuitem" aria-current="page">Contact</a>
+      </li>
+      
     </ul>
 
-    <div class="hamburger" id="hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </div>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu" type="button">
+      <span class="bar" aria-hidden="true"></span>
+      <span class="bar" aria-hidden="true"></span>
+      <span class="bar" aria-hidden="true"></span>
+    </button>
   </div>
 </nav>
 
+    <main id="main-content">
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
@@ -96,6 +119,7 @@
             </div>
         </div>
     </section>
+    </main>
    
    <!-- Footer -->
 <footer class="footer">

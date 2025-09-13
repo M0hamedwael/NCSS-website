@@ -24,6 +24,30 @@ body {
     line-height: 1.6;
     color: #333;
     overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Skip Navigation Link for Accessibility */
+.skip-nav {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #094d6b;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+    font-weight: 600;
+    transition: top 0.3s ease;
+}
+
+.skip-nav:focus {
+    top: 6px;
+    outline: 2px solid #fdf0c3;
+    outline-offset: 2px;
 }
 
 .container {
@@ -146,13 +170,31 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 20px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: inherit;
+    transition: opacity 0.3s ease;
+}
+
+.logo-link:hover {
+    opacity: 0.8;
+}
+
+.logo-link:focus {
+    outline: 2px solid #094d6b;
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 .logo {
@@ -200,6 +242,20 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 500;
     transition: all 0.3s ease;
     position: relative;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: block;
+}
+
+.nav-link:focus {
+    outline: 2px solid #094d6b;
+    outline-offset: 2px;
+    background-color: rgba(9, 77, 107, 0.1);
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid #094d6b;
+    outline-offset: 2px;
 }
 
 .nav-link.scrolled{
@@ -293,6 +349,9 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 800px;
     padding: 0 20px;
     animation: fadeInUp 1s ease-out;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .hero-logo {
@@ -317,6 +376,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease-out 0.6s both;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.1;
 }
 
 .hero-subtitle {
@@ -324,6 +387,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 1rem;
     color: #F5E6B8;
     animation: fadeInUp 1s ease-out 0.9s both;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .hero-description {
@@ -331,6 +397,9 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
     opacity: 0.9;
     animation: fadeInUp 1s ease-out 1.2s both;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .hero-buttons {
@@ -875,8 +944,121 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* ===== MOBILE RESPONSIVE DESIGN ===== */
+/* 
+ * MOBILE COMPATIBILITY IMPROVEMENTS:
+ * 
+ * 1. RESPONSIVE BREAKPOINTS:
+ *    - Large Desktop (1200px+): Enhanced spacing and larger fonts
+ *    - Desktop (992px-1199px): Standard desktop layout
+ *    - Tablet (768px-991px): Two-column layouts, adjusted spacing
+ *    - Mobile Large (481px-767px): Single column, hamburger menu
+ *    - Mobile Small (320px-480px): Compact layout, smaller fonts
+ * 
+ * 2. TOUCH INTERACTIONS:
+ *    - Replaced hover-only effects with touch-friendly alternatives
+ *    - Added active states for touch feedback
+ *    - Implemented tap-to-reveal for gallery overlays
+ *    - Added scroll-based animations for mobile engagement
+ * 
+ * 3. HAMBURGER MENU:
+ *    - Smooth slide-in animation from left
+ *    - Prevents body scroll when open
+ *    - Auto-closes on link click or outside tap
+ *    - Responsive to window resize
+ * 
+ * 4. DESKTOP PRESERVATION:
+ *    - All original hover animations preserved for desktop
+ *    - Touch device detection prevents hover conflicts
+ *    - Graceful degradation for non-touch devices
+ */
+
+/* Large Desktop (1200px and up) */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+/* Desktop (992px to 1199px) */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .nav-menu {
+        gap: 1.5rem;
+    }
+}
+
+/* Tablet (768px to 991px) */
+@media (max-width: 991px) and (min-width: 768px) {
+    .container {
+        max-width: 720px;
+        padding: 0 15px;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .about-content,
+    .admissions-content,
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .campus-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .academics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stats {
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    
+    .nav-menu {
+        gap: 1rem;
+    }
+    
+    .logo-text {
+        margin-right: 50px;
+    }
+}
+
+/* Mobile Large (481px to 767px) */
+@media (max-width: 767px) and (min-width: 481px) {
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Mobile Navigation */
     .hamburger {
         display: flex;
     }
@@ -889,9 +1071,10 @@ h1, h2, h3, h4, h5, h6 {
         background-color: white;
         width: 100%;
         text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        transition: 0.3s ease;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
         padding: 2rem 0;
+        z-index: 999;
     }
     
     .nav-menu.active {
@@ -914,23 +1097,36 @@ h1, h2, h3, h4, h5, h6 {
         transform: translateY(-8px) rotate(-45deg);
     }
     
+    /* Hero Section Mobile */
     .hero-title {
         font-size: 2.5rem;
+        line-height: 1.1;
     }
     
     .hero-subtitle {
         font-size: 1.2rem;
     }
     
+    .hero-description {
+        font-size: 1rem;
+    }
+    
     .hero-buttons {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
     }
     
+    /* Typography Mobile */
     .section-title {
         font-size: 2rem;
     }
     
+    .section-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    /* Layout Mobile */
     .about-content,
     .admissions-content,
     .contact-content {
@@ -941,29 +1137,79 @@ h1, h2, h3, h4, h5, h6 {
     .stats {
         justify-content: center;
         flex-wrap: wrap;
+        gap: 1.5rem;
     }
     
     .campus-gallery {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     .academics-grid {
         grid-template-columns: 1fr;
     }
     
+    /* Student achievements one column on mobile */
+    .grid-container {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+    
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 2rem;
+    }
+    
+    /* Mobile-specific adjustments */
+    .logo-text {
+        margin-right: 20px;
+        font-size: 1rem;
+    }
+    
+    .nav-container {
+        padding: 0 15px;
     }
 }
 
+/* Mobile Small (320px to 480px) */
 @media (max-width: 480px) {
     .container {
-        padding: 0 15px;
+        padding: 0 10px;
     }
     
+    /* Navigation Mobile Small */
+    .nav-container {
+        padding: 0 10px;
+    }
+    
+    .logo {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .logo-text {
+        font-size: 0.9rem;
+        margin-right: 10px;
+    }
+    
+    .hamburger .bar {
+        width: 20px;
+        height: 2px;
+    }
+    
+    /* Hero Section Mobile Small */
     .hero-title {
         font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-description {
+        font-size: 0.95rem;
     }
     
     .hero-logo-img {
@@ -971,17 +1217,66 @@ h1, h2, h3, h4, h5, h6 {
         width: 80px;
     }
     
+    /* Typography Mobile Small */
     .section-title {
         font-size: 1.8rem;
     }
     
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Cards and Components Mobile Small */
     .academic-card,
     .contact-form {
         padding: 1.5rem;
     }
     
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    
+    .stats {
+        gap: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    /* Lightbox Mobile Small */
     .lightbox-content {
         width: 95%;
+        max-height: 70%;
+    }
+    
+    .lightbox-close {
+        font-size: 30px;
+        top: 10px;
+        right: 20px;
+    }
+    
+    /* Footer Mobile Small */
+    .footer {
+        padding: 30px 0 15px;
+    }
+    
+    .footer-content {
+        gap: 1.5rem;
+    }
+    
+    .footer-section h3,
+    .footer-section h4 {
+        font-size: 1.1rem;
+    }
+    
+    .footer-links a {
+        font-size: 0.9rem;
     }
 }
 
@@ -1556,12 +1851,72 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }  
 
-/* ===== Navbar Fixes & Animation ===== */
+/* ===== MOBILE TOUCH INTERACTIONS ===== */
+/* Enhanced touch-friendly interactions for mobile devices */
+
+/* Touch-friendly button sizing */
+@media (max-width: 767px) {
+    .btn {
+        min-height: 44px; /* iOS recommended touch target size */
+        min-width: 44px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        touch-action: manipulation; /* Prevents double-tap zoom */
+    }
+    
+    .nav-link {
+        padding: 12px 16px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        touch-action: manipulation;
+    }
+    
+    /* Touch-friendly gallery items */
+    .gallery-item {
+        min-height: 200px;
+        touch-action: manipulation;
+    }
+    
+    /* Touch-friendly cards */
+    .academic-card {
+        min-height: 200px;
+        touch-action: manipulation;
+    }
+    
+    /* Remove hover effects on touch devices */
+    .gallery-item:hover,
+    .academic-card:hover,
+    .contact-item:hover,
+    .requirement-item:hover {
+        transform: none;
+    }
+    
+    /* Add active states for touch feedback */
+    .gallery-item:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .academic-card:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+    }
+    
+    .btn:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+}
+
+/* ===== ENHANCED HAMBURGER MENU ===== */
 .navbar {
   position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .hamburger {
@@ -1569,6 +1924,23 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: column;
   cursor: pointer;
   transition: 0.3s;
+  padding: 8px;
+  border-radius: 4px;
+  touch-action: manipulation;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.hamburger:focus {
+  outline: 2px solid #094d6b;
+  outline-offset: 2px;
+  background-color: rgba(9, 77, 107, 0.1);
+}
+
+.hamburger:focus-visible {
+  outline: 2px solid #094d6b;
+  outline-offset: 2px;
 }
 
 .hamburger .bar {
@@ -1578,39 +1950,425 @@ h1, h2, h3, h4, h5, h6 {
   margin: 4px 0;
   border-radius: 5px;
   transition: all 0.3s ease-in-out;
+  transform-origin: center;
 }
 
-@media (max-width: 768px) {
+/* Hamburger menu active state */
+.hamburger.active .bar:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+  background: #094d6b;
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+  background: #094d6b;
+}
+
+/* Mobile navigation menu */
+@media (max-width: 767px) {
   .nav-menu {
-    position: absolute;
-    top: 60px;
-    right: 0;
+    position: fixed;
+    top: 70px;
+    left: -100%;
     background: #fff;
     flex-direction: column;
-    width: 220px;
-    padding: 15px;
-    display: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    height: calc(100vh - 70px);
+    padding: 20px 0;
+    display: flex;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: left 0.3s ease;
+    z-index: 998;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #094d6b #f0f0f0;
+  }
+  
+  .nav-menu::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .nav-menu::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  
+  .nav-menu::-webkit-scrollbar-thumb {
+    background: #094d6b;
+    border-radius: 3px;
+  }
+  
+  .nav-menu::-webkit-scrollbar-thumb:hover {
+    background: #2A6B7A;
   }
 
   .nav-menu.active {
-    display: flex;
+    left: 0;
   }
 
   .hamburger {
     display: flex;
   }
 
-  /* Animation: Turn into X */
-  .hamburger.active .bar:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+  .nav-menu li {
+    margin: 0;
+    width: 100%;
   }
-  .hamburger.active .bar:nth-child(2) {
+  
+  .nav-link {
+    width: 100%;
+    text-align: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+    color: #333;
+  }
+  
+  .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #094d6b;
+  }
+  
+  .nav-link.active {
+    background-color: #094d6b;
+    color: white;
+    border-bottom-color: #094d6b;
+  }
+  
+  /* Mobile navbar scrolled state - dark background with light text */
+  .navbar.scrolled .nav-menu {
+    background: #094d6b;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .navbar.scrolled .nav-link {
+    color: #fdf0c3;
+    border-bottom-color: rgba(253, 240, 195, 0.2);
+  }
+  
+  .navbar.scrolled .nav-link:hover {
+    background-color: rgba(253, 240, 195, 0.1);
+    color: #fdf0c3;
+  }
+  
+  .navbar.scrolled .nav-link.active {
+    background-color: #fdf0c3;
+    color: #094d6b;
+    border-bottom-color: #fdf0c3;
+  }
+  
+  /* Hamburger bar colors for scrolled state */
+  .navbar.scrolled .hamburger .bar {
+    background: #fdf0c3;
+  }
+  
+  /* Mobile contact button styling */
+  .mobile-contact-btn {
+    margin-top: 20px;
+    padding: 0 20px;
+  }
+  
+  .nav-contact-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-contact-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(27, 75, 90, 0.3);
+  }
+  
+  .nav-contact-btn:focus {
+    outline: 2px solid #fdf0c3;
+    outline-offset: 2px;
+  }
+  
+  .nav-contact-btn:focus-visible {
+    outline: 2px solid #fdf0c3;
+    outline-offset: 2px;
+  }
+  
+  /* Hide contact button on desktop */
+  @media (min-width: 768px) {
+    .mobile-contact-btn {
+      display: none;
+    }
+  }
+}
+
+/* ===== TOUCH DEVICE DETECTION ===== */
+/* Styles that apply only on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    /* Remove hover effects on touch devices */
+    .gallery-item:hover {
+        transform: none;
+    }
+    
+    .gallery-item:hover img {
+        transform: none;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+        transform: translateY(100%);
+    }
+    
+    .academic-card:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-item:hover {
+        transform: none;
+    }
+    
+    .requirement-item:hover {
+        background: #f8f9fa;
+        transform: none;
+    }
+    
+    .about-img:hover {
+        transform: none;
+    }
+    
+    .hero-logo-img:hover {
+        transform: none;
+    }
+    
+    .logo:hover {
+        transform: none;
+    }
+    
+    /* Add touch feedback instead */
+    .gallery-item:active {
+        transform: scale(0.98);
+    }
+    
+    .academic-card:active {
+        transform: scale(0.98);
+    }
+    
+    .btn:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ===== MOBILE TOUCH FEEDBACK ===== */
+/* Touch feedback styles for mobile devices */
+.touch-device .gallery-item.touching {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.touch-device .academic-card.touching {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+}
+
+.touch-device .btn.touching {
+    transform: scale(0.95);
+    transition: transform 0.1s ease;
+}
+
+/* Mobile overlay activation */
+.gallery-overlay.mobile-active {
+    transform: translateY(0) !important;
+}
+
+/* ===== SCROLL ANIMATIONS ===== */
+/* Scroll-based animations for mobile */
+.gallery-item,
+.academic-card,
+.about-text,
+.stats {
     opacity: 0;
-  }
-  .hamburger.active .bar:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-  }
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.gallery-item.animate-in,
+.academic-card.animate-in,
+.about-text.animate-in,
+.stats.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered animation for multiple elements */
+.gallery-item.animate-in:nth-child(1) { transition-delay: 0.1s; }
+.gallery-item.animate-in:nth-child(2) { transition-delay: 0.2s; }
+.gallery-item.animate-in:nth-child(3) { transition-delay: 0.3s; }
+.gallery-item.animate-in:nth-child(4) { transition-delay: 0.4s; }
+
+.academic-card.animate-in:nth-child(1) { transition-delay: 0.1s; }
+.academic-card.animate-in:nth-child(2) { transition-delay: 0.2s; }
+.academic-card.animate-in:nth-child(3) { transition-delay: 0.3s; }
+.academic-card.animate-in:nth-child(4) { transition-delay: 0.4s; }
+
+/* ===== MOBILE-SPECIFIC IMPROVEMENTS ===== */
+/* Additional mobile optimizations */
+@media (max-width: 767px) {
+    /* Improve text readability on mobile */
+    body {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        width: 100%;
+    }
+    
+    /* Mobile text overflow fixes */
+    .hero-title {
+        font-size: 2.5rem;
+        line-height: 1.1;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .section-subtitle {
+        font-size: 1.1rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    /* Better spacing for mobile */
+    .section-header {
+        margin-bottom: 2rem;
+    }
+    
+    .about,
+    .campus,
+    .academics,
+    .admissions,
+    .contact {
+        padding: 60px 0;
+    }
+    
+    /* Mobile-friendly form inputs */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px 16px;
+    }
+    
+    /* Mobile-friendly video */
+    .hero-video {
+        object-position: center center;
+    }
+    
+    /* Better mobile gallery layout */
+    .campus-gallery {
+        padding: 0 10px;
+    }
+    
+    .gallery-item {
+        margin-bottom: 1rem;
+    }
+    
+    /* Mobile-friendly stats */
+    .stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    
+    .stat-item {
+        min-width: 120px;
+    }
+    
+    /* Mobile staff page improvements - revert to original */
+    .staff-section {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+    }
+    
+    .staff-member {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px 0;
+    }
+    
+    .staff-item {
+        width: 100%;
+        height: 250px;
+    }
+    
+    .staff-info {
+        position: static;
+        transform: none;
+        width: 100%;
+        height: auto;
+        margin-top: 10px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .staff-info.active {
+        transform: none;
+    }
+    
+    /* Mobile admissions button */
+    #admissions-btn {
+        margin-left: 0;
+        width: 100%;
+        max-width: 300px;
+        margin: 20px auto;
+        display: block;
+    }
+    
+    /* Mobile staff gallery positioning */
+    #img1, #img2 {
+        margin-left: 0;
+        width: 100%;
+        max-width: 300px;
+        margin: 10px auto;
+    }
+    
+    #btn-see-more {
+        width: 100%;
+        margin: 20px 0;
+    }
+    
+    #see-more {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+    }
 }
 
 
