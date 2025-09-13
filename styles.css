@@ -2031,7 +2031,7 @@ h1, h2, h3, h4, h5, h6 {
 .slider {
       position: relative;
       width: 500px;
-      height: 250px;
+      height: 281px;
       overflow: hidden;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
@@ -2042,7 +2042,7 @@ h1, h2, h3, h4, h5, h6 {
     }
     .slides img {
       width: 500px;
-      height: 250px;
+      height: 281px;
       object-fit: cover;
       flex-shrink: 0;
     }
@@ -2148,12 +2148,12 @@ h1, h2, h3, h4, h5, h6 {
         max-width: none;
     }
     #dorms-slider{
-        width:800px;
-        height: 280px;
+        width:600px;
+        height: 338px;
     }
     #dorms-slider .slides img{
-        width: 800px;
-        height: 280px;
+        width: 600px;
+        height: 338px;
     }
     /*about page*/
     .about-title{
