@@ -63,11 +63,9 @@ function renderAchievements() {
             </div>
             <div class="achievement-overlay" onclick="handleoverlayclose(event)">
                 <div class="modal">
-                    <div class="modal-header">
+                    <div class="modal-content">
                         <img src="${ach.image || 'https://placehold.co/900x400'}" alt="Popup Image">
                         <span class="achievement-close-btn" onclick="handleAchievementclose(event)">&gt;</span>
-                    </div>
-                    <div class="modal-content">
                         <h2>${ach.title}</h2>
                         <p style="white-space: pre-line;">${ach.desc}</p>
                     </div>
