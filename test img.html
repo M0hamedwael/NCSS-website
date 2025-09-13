@@ -28,7 +28,7 @@ async function fetchAndRenderAchievements() {
         const response = await fetch(csvUrl);
         const csvText = await response.text();
 
-        const rows = csvText.trim().split("\n").map(r => r.split(","));
+        const rows = csvText.trim().split("\n").map(r => r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
         if (rows.length < 2) {
             container.innerHTML = `<p>⚠️ No achievements found yet.</p>`;
             return;
@@ -40,24 +40,24 @@ async function fetchAndRenderAchievements() {
         const colIndex = {
             title: headers.indexOf("The title"),
             desc: headers.indexOf("Description"),
-            image: headers.indexOf("img url"),
+            image: headers.indexOf("upload image (16:9)"),
             year: headers.indexOf("Year"),
         };
 
         container.innerHTML = "";
+        let validCount = 0;
 
         for (const row of dataRows) {
-            // ✅ تجاهل الصفوف الفاضية أو الناقصة
             if (!row.join("").trim()) continue;
-            if (row.length < headers.length) continue;
 
             const title = (row[colIndex.title] || "").trim();
             const desc = (row[colIndex.desc] || "").trim();
             const year = (row[colIndex.year] || "").trim();
             const imageUrl = (row[colIndex.image] || "").trim();
 
-            // ✅ تجاهل لو مفيش عنوان أو وصف
             if (!title && !desc) continue;
+
+            validCount++;
 
             const wrapper = document.createElement("div");
             wrapper.className = "card-wrapper";
@@ -76,7 +76,7 @@ async function fetchAndRenderAchievements() {
             imgEl.alt = "Achievement";
             imgEl.onerror = function () {
                 this.src = "https://placehold.co/600x400?text=No+Image";
-            };
+            };  
 
             const dateTag = document.createElement("div");
             dateTag.className = "date-tag";
@@ -100,6 +100,10 @@ async function fetchAndRenderAchievements() {
             container.appendChild(wrapper);
         }
 
+        if (validCount === 0) {
+            container.innerHTML = `<p>⚠️ No valid achievements found.</p>`;
+        }
+
     } catch (err) {
         console.error("Error fetching sheet CSV:", err);
         container.innerHTML = `<p>⚠️ Unable to load achievements. Please try again later.</p>`;
@@ -108,5 +112,6 @@ async function fetchAndRenderAchievements() {
 
 window.onload = fetchAndRenderAchievements;
 </script>
+
 </body>
 </html>
