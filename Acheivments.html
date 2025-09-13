@@ -42,18 +42,70 @@
         <div class="grid-container">
             <!--Achievement card-->
 
-            <div class="card-wrapper">
-                <div class="card" onclick="handleexpanded(event)">
+           <div class="card-wrapper">
+                <div class="card" id="openModal" onclick="handleAchievementOverlay(event)">
                     <div class="card-header">
                         <div class="image-header">
-                        <img src="https://placehold.co/600x400" alt="winners pov">
-                        <div class="date-tag">2023</div> 
-                    </div>
+                            <img src="https://placehold.co/600x400" alt="winners pov">
+                            <div class="date-tag">2023</div> 
+                        </div>
                         <h3>placeholder</h3>
                     </div>
-                <div class="card-content">
-                    <p>This is some description for card 1. It expands individually when clicked.</p>
                 </div>
+                  <div class="achievement-overlay" id="achievement-overlay" onclick="handleoverlayclose(event)">
+                    <div class="modal" id="modalBox">
+                    <div class="modal-header">
+                        <img src="https://placehold.co/900x400" alt="Popup Image">
+                        <span class="achievement-close-btn" id="achievement-closeBtn" onclick="handleAchievementclose(event)">&gt;</span>
+                    </div>
+                    <div class="modal-content">
+                        <h2>عنوان المعلومات</h2>
+                        <p>
+                        THis line has been made excessively very long to make us able to view the scroll on this page
+                        Why is it this long you may ask that is to make able to view the scroll on this page
+                        </p>
+                        <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec non arcu et eros 
+                        scelerisque feugiat. Praesent ac velit nec odio facilisis condimentum. Sed sit 
+                        amet risus vitae urna tristique malesuada. Nulla facilisi. Morbi lacinia 
+                        condimentum odio, vel placerat eros.
+                        </p>
+                        <p>
+                        Curabitur pharetra ante sit amet dolor hendrerit, a fringilla ipsum cursus. 
+                        Integer porta leo quis eros sollicitudin, at laoreet odio malesuada.
+                        </p>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+           
+
+            <div class="card-wrapper">
+                <div class="card" id="openModal" onclick="handleAchievementOverlay(event)">
+                    <div class="card-header">
+                        <div class="image-header">
+                            <img src="https://placehold.co/600x400" alt="winners pov">
+                            <div class="date-tag">2023</div> 
+                        </div>
+                        <h3>placeholder</h3>
+                    </div>
+                </div>
+                  <div class="achievement-overlay" id="achievement-overlay" onclick="handleoverlayclose(event)">
+                    <div class="modal" id="modalBox">
+                    <div class="modal-header">
+                        <img src="https://placehold.co/900x400" alt="Popup Image">
+                        <span class="achievement-close-btn" id="achievement-closeBtn" onclick="handleAchievementclose(event)">&gt;</span>
+                    </div>
+                    <div class="modal-content">
+                        <h2>Title</h2>
+                        <p>
+                          
+                        </p>
+                        
+                    </div>
+                    </div>
                 </div>
             </div>
 

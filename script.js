@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () =>{
   navigationInit()
   activeLinkInit()
+  initachievements()
 });
 
 function navigationInit(){
@@ -141,3 +142,32 @@ class ImageSlider {
     document.querySelectorAll('.slider').forEach(sliderEl => {
       new ImageSlider(sliderEl);
     });
+
+    function initachievements(){
+      const openBtn = document.getElementById("openModal");
+    const overlay = document.getElementById("achievement-overlay");
+    const modal = document.getElementById("modalBox");
+    const closeBtn = document.getElementById("achievement-closeBtn");
+    };
+    function handleAchievementOverlay(event) {
+      const card = event.target.closest(".card-wrapper")
+      const cardoverlay = card.querySelector(".achievement-overlay")
+      const modal = card.querySelector(".modal")
+      cardoverlay.classList.add("active");
+      setTimeout(() => modal.classList.add("active"), 50);
+    };
+    function handleAchievementclose(event){
+      const modal = event.target.closest(".modal")
+      const overlay = event.target.closest(".achievement-overlay")
+      modal.classList.remove("active");
+      setTimeout(() => overlay.classList.remove("active"), 400);
+    }
+    function handleoverlayclose(e){
+      const overlay = e.target.closest(".achievement-overlay")
+      const modal = overlay.querySelector(".modal") 
+      if (e.target === overlay) {
+        modal.classList.remove("active");
+        setTimeout(() => overlay.classList.remove("active"), 400);
+      }
+    }
+    
