@@ -42,42 +42,159 @@
         <div class="grid-container" id="achievements-container">
     <!-- Cards will be injected here by JS -->
 </div>
-
 <script>
-function renderAchievements() {
-    let data = JSON.parse(localStorage.getItem("achievements") || "[]");
-    let container = document.getElementById("achievements-container");
-    container.innerHTML = "";
+async function fetchAndRenderAchievements() {
+    const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
+    const spreadsheetId = "1I5gxqCWa3XviwxWcJeV5oBCMQpqTbvI6S2buLN190uA";
+    const range = "Form Responses"; // تأكد من اسم الورقة
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+    const container = document.getElementById("achievements-container");
 
-    data.forEach((ach, index) => {
-        container.innerHTML += `
-        <div class="card-wrapper">
-            <div class="card" onclick="handleAchievementOverlay(event)">
-                <div class="card-header">
-                    <div class="image-header">
-                        <img src="${ach.image || 'https://placehold.co/600x400'}" alt="Achievement">
-                        <div class="date-tag">${ach.year || 'N/A'}</div> 
-                    </div>
-                    <h3>${ach.title}</h3>
-                </div>
-            </div>
-            <div class="achievement-overlay" onclick="handleoverlayclose(event)">
-                <div class="modal">
-                    <div class="modal-content">
-                        <img src="${ach.image || 'https://placehold.co/900x400'}" alt="Popup Image">
-                        <span class="achievement-close-btn" onclick="handleAchievementclose(event)">&gt;</span>
-                        <h2>${ach.title}</h2>
-                        <p style="white-space: pre-line;">${ach.desc}</p>
-                    </div>
-                </div>
-            </div>
+    // Loading
+    container.innerHTML = `
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading achievements...</p>
         </div>
-        `;
-    });
+    `;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.values || data.values.length < 2) {
+            container.innerHTML = `<p>⚠️ No achievements found yet.</p>`;
+            return;
+        }
+
+        const headers = data.values[0];
+        const rows = data.values.slice(1);
+
+        const colIndex = {
+            title: headers.indexOf("The title"),
+            desc: headers.indexOf("Description"),
+            image: headers.indexOf("upload image (16:9)"),
+            year: headers.indexOf("Year"),
+        };
+
+        container.innerHTML = "";
+
+        // نمر على الصفوف وننشئ العناصر بدون استخدام fixDriveUrl (نستخدم الرابط كما هو)
+        for (const row of rows) {
+            const rawImageCell = (row[colIndex.image] || "").toString().trim();
+
+            // محاولة بسيطة لاستخراج أول رابط http(s) من الخلية (لو الخلية فيها =IMAGE("url") أو نص طويل)
+            const urlMatch = rawImageCell.match(/https?:\/\/[^\s"')]+/i);
+            const finalImage = urlMatch ? urlMatch[0] : (rawImageCell.startsWith("http") ? rawImageCell : null);
+
+            // لو ما فيش رابط صالح استخدم placeholder
+            const imageUrl = finalImage || "https://placehold.co/600x400?text=No+Image";
+
+            const title = row[colIndex.title] || "Untitled";
+            const desc = row[colIndex.desc] || "";
+            const year = row[colIndex.year] || "N/A";
+
+            // console debug -- مفيد لو الصورة مش بتظهر
+            console.log("Raw image cell:", rawImageCell, " -> used:", imageUrl);
+
+            // بناء العناصر بطريقة آمنة
+            const wrapper = document.createElement("div");
+            wrapper.className = "card-wrapper";
+
+            const card = document.createElement("div");
+            card.className = "card";
+            card.onclick = (e) => { if (typeof handleAchievementOverlay === 'function') handleAchievementOverlay(e); };
+
+            const cardHeader = document.createElement("div");
+            cardHeader.className = "card-header";
+
+            const imageHeader = document.createElement("div");
+            imageHeader.className = "image-header";
+
+            const imgEl = document.createElement("img");
+            imgEl.src = imageUrl;
+            imgEl.alt = "Achievement";
+            imgEl.onerror = function() {
+                this.src = "https://placehold.co/600x400?text=No+Image";
+            };
+
+            const dateTag = document.createElement("div");
+            dateTag.className = "date-tag";
+            dateTag.textContent = year;
+
+            imageHeader.appendChild(imgEl);
+            imageHeader.appendChild(dateTag);
+
+            const h3 = document.createElement("h3");
+            h3.textContent = title;
+
+            cardHeader.appendChild(imageHeader);
+            cardHeader.appendChild(h3);
+            card.appendChild(cardHeader);
+            wrapper.appendChild(card);
+
+            // overlay (popup)
+            const overlay = document.createElement("div");
+            overlay.className = "achievement-overlay";
+            overlay.onclick = (e) => { if (typeof handleoverlayclose === 'function') handleoverlayclose(e); };
+
+            const modal = document.createElement("div");
+            modal.className = "modal";
+
+            const modalContent = document.createElement("div");
+            modalContent.className = "modal-content";
+
+            const popupImg = document.createElement("img");
+            popupImg.src = imageUrl;
+            popupImg.alt = "Popup Image";
+            popupImg.onerror = function() {
+                this.src = "https://placehold.co/1200x800?text=No+Image";
+            };
+
+            const closeBtn = document.createElement("span");
+            closeBtn.className = "achievement-close-btn";
+            closeBtn.innerHTML = "&gt;";
+            closeBtn.onclick = (e) => { 
+                e.stopPropagation();
+                if (typeof handleAchievementclose === 'function') handleAchievementclose(e);
+            };
+
+            const modalTitle = document.createElement("h2");
+            modalTitle.textContent = title;
+
+            const modalDesc = document.createElement("p");
+            modalDesc.style.whiteSpace = "pre-line";
+            modalDesc.textContent = desc;
+
+            modalContent.appendChild(popupImg);
+            modalContent.appendChild(closeBtn);
+            modalContent.appendChild(modalTitle);
+            modalContent.appendChild(modalDesc);
+            modal.appendChild(modalContent);
+            overlay.appendChild(modal);
+            wrapper.appendChild(overlay);
+
+            container.appendChild(wrapper);
+        }
+
+    } catch (err) {
+        console.error("Error fetching sheet data:", err);
+        container.innerHTML = `<p>⚠️ Unable to load achievements. Please try again later.</p>`;
+    }
 }
 
-window.onload = renderAchievements;
+window.onload = fetchAndRenderAchievements;
 </script>
+
+
+
+
+
+
+
+
+
+
 
     
 </section>
