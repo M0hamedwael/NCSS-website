@@ -19,22 +19,15 @@
 
 <script>
 async function fetchAndRenderAchievements() {
-    // لينك النشر كـ CSV
     const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS4JGoZwa0frysUABX2TvHqNcJfaWllRHo3Ppphf9diFiNB6j15qvi-AdJ3HxtdHzw2bN4TeoTvMQYg/pub?output=csv";
     const container = document.getElementById("achievements-container");
 
-    container.innerHTML = `
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-            <p>Loading achievements...</p>
-        </div>
-    `;
+    container.innerHTML = `<p>Loading achievements...</p>`;
 
     try {
         const response = await fetch(csvUrl);
         const csvText = await response.text();
 
-        // تقسيم الـ CSV لصفوف
         const rows = csvText.trim().split("\n").map(r => r.split(","));
         if (rows.length < 2) {
             container.innerHTML = `<p>⚠️ No achievements found yet.</p>`;
@@ -47,17 +40,24 @@ async function fetchAndRenderAchievements() {
         const colIndex = {
             title: headers.indexOf("The title"),
             desc: headers.indexOf("Description"),
-            image: headers.indexOf("upload image (16:9)"),
+            image: headers.indexOf("img url"),
             year: headers.indexOf("Year"),
         };
 
         container.innerHTML = "";
 
         for (const row of dataRows) {
-            const title = row[colIndex.title] || "Untitled";
-            const desc = row[colIndex.desc] || "";
-            const year = row[colIndex.year] || "N/A";
-            const imageUrl = row[colIndex.image] || "https://placehold.co/600x400?text=No+Image";
+            // ✅ تجاهل الصفوف الفاضية أو الناقصة
+            if (!row.join("").trim()) continue;
+            if (row.length < headers.length) continue;
+
+            const title = (row[colIndex.title] || "").trim();
+            const desc = (row[colIndex.desc] || "").trim();
+            const year = (row[colIndex.year] || "").trim();
+            const imageUrl = (row[colIndex.image] || "").trim();
+
+            // ✅ تجاهل لو مفيش عنوان أو وصف
+            if (!title && !desc) continue;
 
             const wrapper = document.createElement("div");
             wrapper.className = "card-wrapper";
@@ -72,7 +72,7 @@ async function fetchAndRenderAchievements() {
             imageHeader.className = "image-header";
 
             const imgEl = document.createElement("img");
-            imgEl.src = imageUrl;
+            imgEl.src = imageUrl || "https://placehold.co/600x400?text=No+Image";
             imgEl.alt = "Achievement";
             imgEl.onerror = function () {
                 this.src = "https://placehold.co/600x400?text=No+Image";
@@ -80,19 +80,23 @@ async function fetchAndRenderAchievements() {
 
             const dateTag = document.createElement("div");
             dateTag.className = "date-tag";
-            dateTag.textContent = year;
+            dateTag.textContent = year || "N/A";
 
             imageHeader.appendChild(imgEl);
             imageHeader.appendChild(dateTag);
 
             const h3 = document.createElement("h3");
-            h3.textContent = title;
+            h3.textContent = title || "Untitled";
+
+            const p = document.createElement("p");
+            p.textContent = desc;
 
             cardHeader.appendChild(imageHeader);
             cardHeader.appendChild(h3);
             card.appendChild(cardHeader);
-            wrapper.appendChild(card);
+            card.appendChild(p);
 
+            wrapper.appendChild(card);
             container.appendChild(wrapper);
         }
 
@@ -104,7 +108,5 @@ async function fetchAndRenderAchievements() {
 
 window.onload = fetchAndRenderAchievements;
 </script>
-
-
 </body>
 </html>
