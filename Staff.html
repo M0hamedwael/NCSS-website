@@ -100,18 +100,23 @@ const range = "Form responses"; // Columns: Name, Title, Subject, Info, img url
 const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
 
 // ================= Helper Functions =================
-// Random delay between 100ms and 800ms
 function randomDelay() {
-    return Math.floor(Math.random() * 700) + 100;
+    return Math.floor(Math.random() * 700) + 100; // 100-800ms
 }
 
-// Fetch data from Google Sheet
 async function fetchSheetData() {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error("Failed to fetch Google Sheet data");
     const data = await res.json();
-    return data.values.slice(1); // remove header row
+    const [header, ...rows] = data.values;
+
+    // Map rows to objects using header
+    return rows.map(row => {
+        const obj = {};
+        header.forEach((key, i) => obj[key] = row[i] || "");
+        return obj;
+    });
 }
 
 // ================= Generate Staff Sections =================
@@ -121,9 +126,9 @@ async function generateStaff() {
 
     // Group by Subject
     const subjects = {};
-    rows.forEach(([name, title, subject, info, imgUrl]) => {
-        if (!subjects[subject]) subjects[subject] = [];
-        subjects[subject].push({ name, title, info, imgUrl });
+    rows.forEach(({ Name, Title, Subject, Info, "img url": imgUrl }) => {
+        if (!subjects[Subject]) subjects[Subject] = [];
+        subjects[Subject].push({ name: Name, title: Title, info: Info, imgUrl });
     });
 
     // Generate HTML for each subject
@@ -141,7 +146,6 @@ async function generateStaff() {
 
         const sectionBody = sectionDiv.querySelector(".staff-section");
 
-        // Add each member with delay
         for (const member of members) {
             await new Promise(res => setTimeout(res, randomDelay()));
 
@@ -149,14 +153,14 @@ async function generateStaff() {
             memberDiv.className = "staff-member";
             memberDiv.innerHTML = `
                 <div class="staff-item" onclick="handleStaffclick(event)">
-                    <img src="${member.imgUrl}" alt="${member.name}">
+                    <img src="${member.imgUrl || 'images/placeholder.png'}" alt="${member.name}">
                     <div class="staff-overlay">
                         <h4>${member.name}</h4>
                         <p>${member.title}</p>
                     </div>
                 </div>
                 <div class="staff-info">
-                    ${member.info}
+                    ${member.info || "No additional info available."}
                 </div>
             `;
             sectionBody.appendChild(memberDiv);
@@ -168,17 +172,14 @@ async function generateStaff() {
 function handleStaffclick(event) {
     const staffItem = event.currentTarget;
     const infoDiv = staffItem.nextElementSibling;
-    if (infoDiv.style.display === "block") {
-        infoDiv.style.display = "none";
-    } else {
-        infoDiv.style.display = "block";
-    }
+    infoDiv.style.display = infoDiv.style.display === "block" ? "none" : "block";
 }
 
 // ================= Initialize =================
 document.addEventListener("DOMContentLoaded", () => {
     generateStaff().catch(err => console.error("Error loading staff:", err));
 });
+
 
 </script>
 
