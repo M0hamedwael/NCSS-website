@@ -42,6 +42,7 @@
     <!-- Cards will be injected here by JS -->
 </div>
 <script>
+
 async function fetchAndRenderAchievements() {
     const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
     const spreadsheetId = "1I5gxqCWa3XviwxWcJeV5oBCMQpqTbvI6S2buLN190uA";
@@ -58,8 +59,8 @@ async function fetchAndRenderAchievements() {
     `;
 
     try {
-        // ✅ هنا التعديل: استخدام fetchWithRetry بدل fetch
-        const data = await fetchWithRetry(url, 5, 1000);
+        const response = await fetch(url);
+        const data = await response.json();
 
         if (!data.values || data.values.length < 2) {
             container.innerHTML = `<p>⚠️ No achievements found yet.</p>`;
@@ -78,16 +79,25 @@ async function fetchAndRenderAchievements() {
 
         container.innerHTML = "";
 
+        // نمر على الصفوف وننشئ العناصر بدون استخدام fixDriveUrl (نستخدم الرابط كما هو)
         for (const row of rows) {
             const rawImageCell = (row[colIndex.image] || "").toString().trim();
+
+            // محاولة بسيطة لاستخراج أول رابط http(s) من الخلية (لو الخلية فيها =IMAGE("url") أو نص طويل)
             const urlMatch = rawImageCell.match(/https?:\/\/[^\s"')]+/i);
             const finalImage = urlMatch ? urlMatch[0] : (rawImageCell.startsWith("http") ? rawImageCell : null);
+
+            // لو ما فيش رابط صالح استخدم placeholder
             const imageUrl = finalImage || "https://placehold.co/600x400?text=No+Image";
 
             const title = row[colIndex.title] || "Untitled";
             const desc = row[colIndex.desc] || "";
             const year = row[colIndex.year] || "N/A";
 
+            // console debug -- مفيد لو الصورة مش بتظهر
+            console.log("Raw image cell:", rawImageCell, " -> used:", imageUrl);
+
+            // بناء العناصر بطريقة آمنة
             const wrapper = document.createElement("div");
             wrapper.className = "card-wrapper";
 
@@ -123,7 +133,7 @@ async function fetchAndRenderAchievements() {
             card.appendChild(cardHeader);
             wrapper.appendChild(card);
 
-            // overlay
+            // overlay (popup)
             const overlay = document.createElement("div");
             overlay.className = "achievement-overlay";
             overlay.onclick = (e) => { if (typeof handleoverlayclose === 'function') handleoverlayclose(e); };
@@ -173,6 +183,7 @@ async function fetchAndRenderAchievements() {
     }
 }
 
+window.onload = fetchAndRenderAchievements;
 </script>
 
 
