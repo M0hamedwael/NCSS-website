@@ -38,89 +38,85 @@
   </div>
 </nav>
 
+
 <div class="staff-body">
-<h1 class="staff-header">our Staff</h1>
-
- <!--section-->
-<div class="subject-section">
-    <div class="subject">
-        <span class="subject-txt">Educational Adminstrators</span>
-    </div>
-    <div class="staff-section">
-
-        <!--Staff card-->
-
-        <div class="staff-member">
-                <div class="staff-item"  onclick="handleStaffclick(event)">
-                    <img src="images/Dr.marwa.png" alt="Principal of School">
-                    <div class="staff-overlay">
-                        <h4>Dr.Marwa Elmoursy</h4>
-                        <p>School's Principal</p>
-                    </div>
-                </div>
-                <div class="staff-info">
-                            asdjans
-                </div>
-        </div>
-
-        <!--Staff Card-->
-
-        <div class="staff-member">
-            <div class="staff-item" onclick="handleStaffclick(event)">
-                    <img src="images/Dr. Akef.png" alt="Mr. Akef Eltahawy">
-                    <div class="staff-overlay">
-                        <h4>Dr. Akef Eltahawy</h4>
-                        <p>School's Deputy</p>
-                    </div>
-            </div>
-            <div class="staff-info">
-                            asdjans
-            </div>   
-        </div>
-    </div>
-
+  <h1 class="staff-header">Our Staff</h1>
+  <div id="staff-container"></div>
+</div>
+<div id="staff-container">
+  <p>Loading staff...</p>
 </div>
 
+<script>
+async function fetchAndRenderStaff() {
+  const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
+  const sheetId = "1AHCH7yYFovieVoJAE99plKkBImgd7TXk1Qqgr9NLWbI";
+  const range = "Form responses"; // غيّر حسب الشيت
+  const container = document.getElementById("staff-container");
 
- <!--section-->
-<div class="subject-section">
-    <div class="subject">
-        <span class="subject-txt">Math</span>
-    </div>
-    <div class="staff-section">
+  // Loading message
+  container.innerHTML = `<p>Loading staff...</p>`;
 
-        <!--Staff card-->
+  try {
+    const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`);
+    const data = await response.json();
 
-        <div class="staff-member">
-                <div class="staff-item"  onclick="handleStaffclick(event)">
-                    <img src="images/Dr.marwa.png" alt="Principal of School">
-                    <div class="staff-overlay">
-                        <h4>Dr.Marwa Elmoursy</h4>
-                        <p>School's Principal</p>
-                    </div>
-                </div>
-                <div class="staff-info">
-                            asdjans
-                </div>
+    if (!data.values || data.values.length < 2) {
+      container.innerHTML = `<p>⚠️ No staff data found.</p>`;
+      return;
+    }
+
+    const headers = data.values[0];
+    const rows = data.values.slice(1);
+
+    // معرفة الأعمدة حسب اسمها
+    const colIndex = {
+      name: headers.indexOf("Name"),
+      role: headers.indexOf("Role"),
+      subject: headers.indexOf("Subject"),
+      image: headers.indexOf("Image URL"),
+      bio: headers.indexOf("Bio")
+    };
+
+    container.innerHTML = "";
+
+    // نضيف delay 30 ثانية قبل عرض كل عضو (تقدر تغيّر الرقم حسب الحاجة)
+    for (const row of rows) {
+      await new Promise(resolve => setTimeout(resolve, 1000)); // 1 ثانية لكل عضو لتجربة، ممكن 30000 لـ 30 ثانية
+
+      const name = row[colIndex.name] || "Unnamed";
+      const role = row[colIndex.role] || "";
+      const subject = row[colIndex.subject] || "";
+      const bio = row[colIndex.bio] || "";
+      const imageUrl = row[colIndex.image] || "https://placehold.co/200x200?text=No+Image";
+
+      // إنشاء العنصر
+      const staffMember = document.createElement("div");
+      staffMember.className = "staff-member";
+
+      staffMember.innerHTML = `
+        <div class="staff-item">
+          <img src="${imageUrl}" alt="${name}">
+          <div class="staff-overlay">
+            <h4>${name}</h4>
+            <p>${role}</p>
+            <p><strong>Subject:</strong> ${subject}</p>
+            <p>${bio}</p>
+          </div>
         </div>
+      `;
 
-        <!--Staff Card-->
+      container.appendChild(staffMember);
+    }
 
-        <div class="staff-member">
-            <div class="staff-item" onclick="handleStaffclick(event)">
-                    <img src="images/Dr. Akef.png" alt="Mr. Akef Eltahawy">
-                    <div class="staff-overlay">
-                        <h4>Dr. Akef Eltahawy</h4>
-                        <p>School's Deputy</p>
-                    </div>
-            </div>
-            <div class="staff-info">
-                            asdjans
-            </div>   
-        </div>
-    </div>
+  } catch (err) {
+    console.error("Error fetching sheet data:", err);
+    container.innerHTML = `<p>⚠️ Unable to load staff. Please try again later.</p>`;
+  }
+}
 
-</div>
+window.onload = fetchAndRenderStaff;
+</script>
 
 
    <!-- Footer -->
