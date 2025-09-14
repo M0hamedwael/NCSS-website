@@ -94,86 +94,92 @@
 </div>
 
 <script>
-const spreadsheetId = '1AHCH7yYFovieVoJAE99plKkBImgd7TXk1Qqgr9NLWbI';
-const apiKey = 'AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo'; // ضع هنا مفتاح الـ API
+// ================= Google Sheet Config =================
+const sheetId = "1AHCH7yYFovieVoJAE99plKkBImgd7TXk1Qqgr9NLWbI";
+const range = "Form responses"; // Columns: Name, Title, Subject, Info, img url
+const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
 
-async function fetchStaffData() {
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1?key=${apiKey}`;
-  const res = await fetch(url);
-  const data = await res.json();
-  return data.values;
+// ================= Helper Functions =================
+// Random delay between 100ms and 800ms
+function randomDelay() {
+    return Math.floor(Math.random() * 700) + 100;
 }
 
-function groupBySubject(rows) {
-  const headers = rows[0];
-  const nameIndex = headers.indexOf("Name");
-  const titleIndex = headers.indexOf("Title");
-  const subjectIndex = headers.indexOf("Subject");
-  const infoIndex = headers.indexOf("Info");
-  const imgIndex = headers.indexOf("img url");
+// Fetch data from Google Sheet
+async function fetchSheetData() {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Failed to fetch Google Sheet data");
+    const data = await res.json();
+    return data.values.slice(1); // remove header row
+}
 
-  const grouped = {};
-  for(let i=1; i<rows.length; i++) {
-    const row = rows[i];
-    const subject = row[subjectIndex] || 'Unknown';
-    if(!grouped[subject]) grouped[subject] = [];
-    grouped[subject].push({
-      name: row[nameIndex],
-      title: row[titleIndex],
-      info: row[infoIndex],
-      img: row[imgIndex]
+// ================= Generate Staff Sections =================
+async function generateStaff() {
+    const staffContainer = document.querySelector(".staff-body");
+    const rows = await fetchSheetData();
+
+    // Group by Subject
+    const subjects = {};
+    rows.forEach(([name, title, subject, info, imgUrl]) => {
+        if (!subjects[subject]) subjects[subject] = [];
+        subjects[subject].push({ name, title, info, imgUrl });
     });
-  }
-  return grouped;
+
+    // Generate HTML for each subject
+    for (const [subject, members] of Object.entries(subjects)) {
+        const sectionDiv = document.createElement("div");
+        sectionDiv.className = "subject-section";
+
+        sectionDiv.innerHTML = `
+            <div class="subject">
+                <span class="subject-txt">${subject}</span>
+            </div>
+            <div class="staff-section" id="subject-${subject.replace(/\s+/g, "-")}"></div>
+        `;
+        staffContainer.appendChild(sectionDiv);
+
+        const sectionBody = sectionDiv.querySelector(".staff-section");
+
+        // Add each member with delay
+        for (const member of members) {
+            await new Promise(res => setTimeout(res, randomDelay()));
+
+            const memberDiv = document.createElement("div");
+            memberDiv.className = "staff-member";
+            memberDiv.innerHTML = `
+                <div class="staff-item" onclick="handleStaffclick(event)">
+                    <img src="${member.imgUrl}" alt="${member.name}">
+                    <div class="staff-overlay">
+                        <h4>${member.name}</h4>
+                        <p>${member.title}</p>
+                    </div>
+                </div>
+                <div class="staff-info">
+                    ${member.info}
+                </div>
+            `;
+            sectionBody.appendChild(memberDiv);
+        }
+    }
 }
 
-function createStaffCard(member) {
-  return `
-    <div class="staff-member">
-      <div class="staff-item" onclick="handleStaffclick(event)">
-        <img src="${member.img}" alt="${member.name}">
-        <div class="staff-overlay">
-          <h4>${member.name}</h4>
-          <p>${member.title}</p>
-        </div>
-      </div>
-      <div class="staff-info">${member.info}</div>
-    </div>
-  `;
+// ================= Staff Click Modal =================
+function handleStaffclick(event) {
+    const staffItem = event.currentTarget;
+    const infoDiv = staffItem.nextElementSibling;
+    if (infoDiv.style.display === "block") {
+        infoDiv.style.display = "none";
+    } else {
+        infoDiv.style.display = "block";
+    }
 }
 
-// Helper delay function
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function displayStaff(grouped) {
-  const container = document.getElementById('staff-container');
-  container.innerHTML = '';
-
-  for(const subject in grouped) {
-    const section = document.createElement('div');
-    section.classList.add('subject-section');
-    section.innerHTML = `
-      <div class="subject">
-        <span class="subject-txt">${subject}</span>
-      </div>
-      <div class="staff-section">
-        ${grouped[subject].map(createStaffCard).join('')}
-      </div>
-    `;
-    container.appendChild(section);
-
-    // Add delay (100ms) قبل إضافة القسم التالي
-    await delay(100);
-  }
-}
-
-// Fetch & display
-fetchStaffData().then(rows => {
-  const grouped = groupBySubject(rows);
-  displayStaff(grouped);
+// ================= Initialize =================
+document.addEventListener("DOMContentLoaded", () => {
+    generateStaff().catch(err => console.error("Error loading staff:", err));
 });
+
 </script>
 
 
