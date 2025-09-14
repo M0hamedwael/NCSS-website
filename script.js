@@ -9,11 +9,30 @@ const navbar = document.getElementById("navbar")
 const navitem = document.querySelectorAll(".nav-link")
 const logotext = document.querySelectorAll(".logo-text")
 const bar = document.querySelectorAll(".bar");
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("nav-menu");
 let ticking = false
 
+// Mobile menu toggle
 hamburger.addEventListener("click", () => {
   navMenu.classList.toggle("active");
   hamburger.classList.toggle("active");
+});
+
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', () => {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+  });
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+    navMenu.classList.remove('active');
+    hamburger.classList.remove('active');
+  }
 });
 
 window.addEventListener("scroll", function() {

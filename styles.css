@@ -699,6 +699,55 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 2rem;
 }
 
+/* Footer responsive improvements */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-logo {
+        justify-content: center;
+    }
+    
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .footer-contact p {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 30px 0 15px;
+    }
+    
+    .footer-content {
+        gap: 1.5rem;
+    }
+    
+    .footer-section h3,
+    .footer-section h4 {
+        font-size: 1.2rem;
+    }
+    
+    .footer-logo-img {
+        height: 40px;
+        width: 40px;
+    }
+}
+
 .footer-logo {
     display: flex;
     align-items: center;
@@ -892,6 +941,7 @@ h1, h2, h3, h4, h5, h6 {
         transition: 0.3s;
         box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
         padding: 2rem 0;
+        z-index: 999;
     }
     
     .nav-menu.active {
@@ -955,6 +1005,124 @@ h1, h2, h3, h4, h5, h6 {
         grid-template-columns: 1fr;
         text-align: center;
     }
+    
+    /* Fix staff section layout */
+    #img1, #img2 {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    #btn-see-more {
+        width: 100%;
+        margin: 20px auto;
+    }
+    
+    #admissions-btn {
+        margin-left: 0;
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* Campus page responsive */
+    .school-overview {
+        flex-direction: column;
+        padding: 50px 20px;
+    }
+    
+    .cpage-text {
+        width: 100%;
+    }
+    
+    .labs {
+        flex-direction: column;
+        padding: 50px 20px;
+    }
+    
+    #lab-text {
+        margin-left: 0;
+    }
+    
+    #dorms-text {
+        width: 100%;
+        padding: 0 20px;
+    }
+    
+    #dorms-slider {
+        width: 100%;
+        max-width: 500px;
+    }
+    
+    #dorms-slider .slides img {
+        width: 100%;
+        height: auto;
+    }
+    
+    /* About page responsive */
+    .about-journey {
+        padding: 0 20px;
+    }
+    
+    .about-journey p {
+        width: 100%;
+    }
+    
+    .foundation-txt {
+        padding: 100px 20px;
+    }
+    
+    .foundation-txt p {
+        width: 100%;
+    }
+    
+    .vision-txt p {
+        width: 100%;
+        padding: 0 20px;
+    }
+}
+
+/* Tablet styles */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .container {
+        max-width: 100%;
+        padding: 0 30px;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .about-content {
+        gap: 3rem;
+    }
+    
+    .campus-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .academics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Staff section tablet */
+    #img1, #img2 {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    #btn-see-more {
+        width: 100%;
+        margin: 20px auto;
+    }
+    
+    #admissions-btn {
+        margin-left: 0;
+        width: 100%;
+        max-width: 300px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -982,6 +1150,124 @@ h1, h2, h3, h4, h5, h6 {
     
     .lightbox-content {
         width: 95%;
+    }
+    
+    /* Mobile specific fixes */
+    .hero-video {
+        height: 100vh;
+        object-fit: cover;
+    }
+    
+    .hero-content {
+        padding: 0 15px;
+    }
+    
+    .nav-container {
+        padding: 0 15px;
+    }
+    
+    .logo-text {
+        font-size: 1rem;
+        margin-right: 0;
+    }
+    
+    .logo {
+        height: 40px;
+        width: 40px;
+    }
+    
+    /* Staff page mobile */
+    .staff-section {
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .staff-member {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+    
+    .staff-item {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .staff-info {
+        width: 100%;
+        max-width: 300px;
+        transform: translate(0, 0);
+        position: relative;
+        margin-top: 20px;
+    }
+    
+    .staff-info.active {
+        transform: translate(0, 0);
+    }
+    
+    /* Achievements mobile */
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 15px;
+    }
+    
+    /* Extracurriculars mobile */
+    .extrac {
+        width: 95%;
+    }
+    
+    .extrac-details {
+        flex-direction: column;
+    }
+    
+    .extrac-img {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .extrac-txt {
+        height: 200px;
+    }
+    
+    /* Campus page mobile */
+    .slider {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+    }
+    
+    .slides img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .campus-header {
+        padding-bottom: 100px;
+    }
+    
+    #campus-title {
+        font-size: 2rem;
+        padding-top: 20px;
+    }
+    
+    /* About page mobile */
+    .foundation-bgimg img {
+        transform: translate(0, 0);
+    }
+    
+    .foundation-txt {
+        padding: 50px 20px;
+    }
+    
+    .vision-txt {
+        padding: 50px 20px;
     }
 }
 
@@ -1353,6 +1639,54 @@ h1, h2, h3, h4, h5, h6 {
     .gallery-item:hover {
         transform: translateY(-8px) scale(1.01);
     }
+    
+    /* Disable hover effects on touch devices */
+    .academic-card:active {
+        transform: translateY(-5px) scale(1.02);
+    }
+    
+    .gallery-item:active {
+        transform: translateY(-8px) scale(1.01);
+    }
+}
+
+/* Large screens optimization */
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
 }
 
 /* Performance Optimizations */
@@ -1370,6 +1704,55 @@ h1, h2, h3, h4, h5, h6 {
 .btn {
     transform: translateZ(0);
     backface-visibility: hidden;
+}
+
+/* Responsive image styles */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure all images are responsive */
+.about-img,
+.admissions-img,
+.gallery-item img,
+.staff-item img,
+.achievement-overlay img,
+.slides img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Form responsive styles */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Button responsive styles */
+.btn {
+    width: auto;
+    min-width: 120px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 10px auto;
+        display: block;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 250px;
+    }
 }
 
 
@@ -1473,6 +1856,14 @@ h1, h2, h3, h4, h5, h6 {
     height: 100%;
     object-fit: cover; /* الفيديو يغطي الشاشة كلها */
     z-index: -1;
+  }
+  
+  /* Ensure video is responsive */
+  @media (max-width: 768px) {
+    .hero-video {
+      height: 100vh;
+      object-fit: cover;
+    }
   }
   
   .hero-overlay {

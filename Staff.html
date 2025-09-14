@@ -71,7 +71,53 @@
         <div class="footer-contact">
           <p><i class="fas fa-map-marker-alt"></i> 
             <a href="https://goo.gl/maps/YOUR_MAP_LINK" target="_blank" style="color: white; text-decoration: none;">New Cairo, Egypt</a>
+          </p>
+          <p><i class="fas fa-envelope"></i> 
+            <a href="mailto:newcairosch@stemnewcairo.moe.edu.eg" style="color: white; text-decoration: none;">newcairosch@stemnewcairo.moe.edu.eg</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-credits">
+        <p>&copy; 2025 New Cairo STEM School. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+</footer>
 
+<!-- Lightbox Modal -->
+<div id="lightbox" class="lightbox">
+  <span class="lightbox-close">&times;</span>
+  <img class="lightbox-content" id="lightbox-img">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script>
+// ================= Google Sheet Config =================
+const sheetId = "1AHCH7yYFovieVoJAE99plKkBImgd7TXk1Qqgr9NLWbI";
+const range = "Form responses"; // Columns: Name, Title, Subject, Info, img url
+const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
+
+// ================= Helper Functions =================
+function randomDelay() {
+    return Math.floor(Math.random() * 700) + 100; // 100-800ms
+}
+
+async function fetchSheetData() {
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Failed to fetch Google Sheet data");
+    const data = await res.json();
+    const [header, ...rows] = data.values;
+
+    // Map rows to objects using header
+    return rows.map(row => {
+        const obj = {};
+        header.forEach((key, i) => obj[key] = row[i] || "");
+        return obj;
+    });
+}
 
 // ================= Generate Staff Sections =================
 async function generateStaff() {
