@@ -42,149 +42,197 @@
     <!-- Cards will be injected here by JS -->
 </div>
 <script>
+/* Improved loader: jitter + retries + cache + stale fallback */
+(async function(){
+  const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo"; // ضيف الـ API key بتاعك
+  const spreadsheetId = "1I5gxqCWa3XviwxWcJeV5oBCMQpqTbvI6S2buLN190uA";
+  const range = "Form Responses"; // غيّره لو اسم التاب مختلف
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}?key=${apiKey}`;
 
-async function fetchAndRenderAchievements() {
-    const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
-    const spreadsheetId = "1I5gxqCWa3XviwxWcJeV5oBCMQpqTbvI6S2buLN190uA";
-    const range = "Form Responses"; // تأكد من اسم الورقة
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
-    const container = document.getElementById("achievements-container");
+  const container = document.getElementById("achievements-container");
+  const CACHE_KEY = 'achievements_cache_v1';
+  const CACHE_TTL = 30 * 1000; // 30s (قابل للتعديل)
 
-    // Loading
+  function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+
+  async function fetchWithRetry(url, retries = 5, baseDelay = 700) {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          const status = res.status;
+          // Non-retryable codes will stop retries; retry for 429/5xx
+          if (![429,500,502,503,504].includes(status)) {
+            const e = new Error(`HTTP ${status}`);
+            e.status = status;
+            throw e;
+          }
+          const e = new Error(`HTTP ${status}`);
+          e.status = status;
+          throw e;
+        }
+        return await res.json();
+      } catch (err) {
+        console.warn(`fetch attempt ${attempt} failed`, err);
+        const status = err.status || null;
+        const retryable = !status || [429,500,502,503,504].includes(status);
+        if (attempt === retries || !retryable) throw err;
+        const jitter = Math.random() * 400;
+        const delay = baseDelay * Math.pow(2, attempt - 1) + jitter;
+        await sleep(delay);
+      }
+    }
+  }
+
+  function showLoading(){
     container.innerHTML = `
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-            <p>Loading achievements...</p>
-        </div>
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+        <p>Loading achievements...</p>
+      </div>
     `;
+  }
+
+  function renderFromData(data, {stale=false} = {}) {
+    if (!data || !data.values || data.values.length < 2) {
+      container.innerHTML = `<p>⚠️ No achievements found yet.</p>`;
+      return;
+    }
+
+    const headers = data.values[0];
+    const rows = data.values.slice(1);
+    const colIndex = {
+      title: headers.indexOf("The title"),
+      desc: headers.indexOf("Description"),
+      image: headers.indexOf("img url"),
+      year: headers.indexOf("Year"),
+    };
+
+    container.innerHTML = "";
+    if (stale) {
+      const note = document.createElement('div');
+      note.className = 'stale-notice';
+      note.textContent = 'Showing cached data (may be slightly out of date).';
+      container.appendChild(note);
+    }
+
+    for (const row of rows) {
+      const rawImageCell = (row[colIndex.image] || "").toString().trim();
+      const urlMatch = rawImageCell.match(/https?:\/\/[^\s"')]+/i);
+      const finalImage = urlMatch ? urlMatch[0] : (rawImageCell.startsWith("http") ? rawImageCell : null);
+      const imageUrl = finalImage || "https://placehold.co/600x400?text=No+Image";
+
+      const title = row[colIndex.title] || "Untitled";
+      const desc = row[colIndex.desc] || "";
+      const year = row[colIndex.year] || "N/A";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "card-wrapper";
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.onclick = (e) => { if (typeof handleAchievementOverlay === 'function') handleAchievementOverlay(e); };
+
+      const cardHeader = document.createElement("div");
+      cardHeader.className = "card-header";
+
+      const imageHeader = document.createElement("div");
+      imageHeader.className = "image-header";
+
+      const imgEl = document.createElement("img");
+      imgEl.src = imageUrl;
+      imgEl.alt = "Achievement";
+      imgEl.onerror = function(){ this.src = "https://placehold.co/600x400?text=No+Image"; };
+
+      const dateTag = document.createElement("div");
+      dateTag.className = "date-tag";
+      dateTag.textContent = year;
+
+      imageHeader.appendChild(imgEl);
+      imageHeader.appendChild(dateTag);
+
+      const h3 = document.createElement("h3");
+      h3.textContent = title;
+
+      cardHeader.appendChild(imageHeader);
+      cardHeader.appendChild(h3);
+      card.appendChild(cardHeader);
+      wrapper.appendChild(card);
+
+      // overlay (مثل اللي عندك)
+      const overlay = document.createElement("div");
+      overlay.className = "achievement-overlay";
+      overlay.onclick = (e) => { if (typeof handleoverlayclose === 'function') handleoverlayclose(e); };
+
+      const modal = document.createElement("div"); modal.className = "modal";
+      const modalContent = document.createElement("div"); modalContent.className = "modal-content";
+      const popupImg = document.createElement("img"); popupImg.src = imageUrl; popupImg.alt = "Popup Image";
+      popupImg.onerror = function(){ this.src = "https://placehold.co/1200x800?text=No+Image"; };
+
+      const closeBtn = document.createElement("span"); closeBtn.className = "achievement-close-btn";
+      closeBtn.innerHTML = "&gt;"; closeBtn.onclick = (e) => { e.stopPropagation(); if (typeof handleAchievementclose === 'function') handleAchievementclose(e); };
+
+      const modalTitle = document.createElement("h2"); modalTitle.textContent = title;
+      const modalDesc = document.createElement("p"); modalDesc.style.whiteSpace = "pre-line"; modalDesc.textContent = desc;
+
+      modalContent.appendChild(popupImg);
+      modalContent.appendChild(closeBtn);
+      modalContent.appendChild(modalTitle);
+      modalContent.appendChild(modalDesc);
+      modal.appendChild(modalContent);
+      overlay.appendChild(modal);
+      wrapper.appendChild(overlay);
+      container.appendChild(wrapper);
+    }
+  }
+
+  async function loadAndRender() {
+    showLoading();
+    // small random delay to avoid simultaneous hits from many users
+    await sleep(Math.floor(Math.random() * 600));
+
+    // quick cache check
+    try {
+      const cachedText = localStorage.getItem(CACHE_KEY);
+      if (cachedText) {
+        const parsed = JSON.parse(cachedText);
+        if (Date.now() - parsed.ts < CACHE_TTL) {
+          renderFromData(parsed.data);
+          console.log('Rendered from cache (fresh)');
+          return;
+        }
+      }
+    } catch(e){ console.warn('cache read error', e); }
 
     try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        if (!data.values || data.values.length < 2) {
-            container.innerHTML = `<p>⚠️ No achievements found yet.</p>`;
-            return;
-        }
-
-        const headers = data.values[0];
-        const rows = data.values.slice(1);
-
-        const colIndex = {
-            title: headers.indexOf("The title"),
-            desc: headers.indexOf("Description"),
-            image: headers.indexOf("img url"),
-            year: headers.indexOf("Year"),
-        };
-
-        container.innerHTML = "";
-
-        // نمر على الصفوف وننشئ العناصر بدون استخدام fixDriveUrl (نستخدم الرابط كما هو)
-        for (const row of rows) {
-            const rawImageCell = (row[colIndex.image] || "").toString().trim();
-
-            // محاولة بسيطة لاستخراج أول رابط http(s) من الخلية (لو الخلية فيها =IMAGE("url") أو نص طويل)
-            const urlMatch = rawImageCell.match(/https?:\/\/[^\s"')]+/i);
-            const finalImage = urlMatch ? urlMatch[0] : (rawImageCell.startsWith("http") ? rawImageCell : null);
-
-            // لو ما فيش رابط صالح استخدم placeholder
-            const imageUrl = finalImage || "https://placehold.co/600x400?text=No+Image";
-
-            const title = row[colIndex.title] || "Untitled";
-            const desc = row[colIndex.desc] || "";
-            const year = row[colIndex.year] || "N/A";
-
-            // console debug -- مفيد لو الصورة مش بتظهر
-            console.log("Raw image cell:", rawImageCell, " -> used:", imageUrl);
-
-            // بناء العناصر بطريقة آمنة
-            const wrapper = document.createElement("div");
-            wrapper.className = "card-wrapper";
-
-            const card = document.createElement("div");
-            card.className = "card";
-            card.onclick = (e) => { if (typeof handleAchievementOverlay === 'function') handleAchievementOverlay(e); };
-
-            const cardHeader = document.createElement("div");
-            cardHeader.className = "card-header";
-
-            const imageHeader = document.createElement("div");
-            imageHeader.className = "image-header";
-
-            const imgEl = document.createElement("img");
-            imgEl.src = imageUrl;
-            imgEl.alt = "Achievement";
-            imgEl.onerror = function() {
-                this.src = "https://placehold.co/600x400?text=No+Image";
-            };
-
-            const dateTag = document.createElement("div");
-            dateTag.className = "date-tag";
-            dateTag.textContent = year;
-
-            imageHeader.appendChild(imgEl);
-            imageHeader.appendChild(dateTag);
-
-            const h3 = document.createElement("h3");
-            h3.textContent = title;
-
-            cardHeader.appendChild(imageHeader);
-            cardHeader.appendChild(h3);
-            card.appendChild(cardHeader);
-            wrapper.appendChild(card);
-
-            // overlay (popup)
-            const overlay = document.createElement("div");
-            overlay.className = "achievement-overlay";
-            overlay.onclick = (e) => { if (typeof handleoverlayclose === 'function') handleoverlayclose(e); };
-
-            const modal = document.createElement("div");
-            modal.className = "modal";
-
-            const modalContent = document.createElement("div");
-            modalContent.className = "modal-content";
-
-            const popupImg = document.createElement("img");
-            popupImg.src = imageUrl;
-            popupImg.alt = "Popup Image";
-            popupImg.onerror = function() {
-                this.src = "https://placehold.co/1200x800?text=No+Image";
-            };
-
-            const closeBtn = document.createElement("span");
-            closeBtn.className = "achievement-close-btn";
-            closeBtn.innerHTML = "&gt;";
-            closeBtn.onclick = (e) => { 
-                e.stopPropagation();
-                if (typeof handleAchievementclose === 'function') handleAchievementclose(e);
-            };
-
-            const modalTitle = document.createElement("h2");
-            modalTitle.textContent = title;
-
-            const modalDesc = document.createElement("p");
-            modalDesc.style.whiteSpace = "pre-line";
-            modalDesc.textContent = desc;
-
-            modalContent.appendChild(popupImg);
-            modalContent.appendChild(closeBtn);
-            modalContent.appendChild(modalTitle);
-            modalContent.appendChild(modalDesc);
-            modal.appendChild(modalContent);
-            overlay.appendChild(modal);
-            wrapper.appendChild(overlay);
-
-            container.appendChild(wrapper);
-        }
-
+      const data = await fetchWithRetry(url, 5, 700);
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch(e){ console.warn('cache write failed', e); }
+      renderFromData(data);
     } catch (err) {
-        console.error("Error fetching sheet data:", err);
-        container.innerHTML = `<p>⚠️ Unable to load achievements. Please try again later.</p>`;
+      console.error('Final fetch failed', err);
+      // fallback to stale cache if exists
+      try {
+        const cachedText = localStorage.getItem(CACHE_KEY);
+        if (cachedText) {
+          const parsed = JSON.parse(cachedText);
+          renderFromData(parsed.data, { stale: true });
+          // try to refresh quietly in background (won't block UI)
+          fetchWithRetry(url, 3, 800).then(fresh => {
+            try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: fresh })); } catch(e){}
+            renderFromData(fresh);
+          }).catch(()=>{});
+          return;
+        }
+      } catch(e){}
+      container.innerHTML = `<p>⚠️ Unable to load achievements. Please try again later.</p>`;
     }
-}
+  }
 
-window.onload = fetchAndRenderAchievements;
+  loadAndRender();
+
+})();
 </script>
+
 
 
 
