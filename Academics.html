@@ -75,87 +75,102 @@
     </div>
     <section id="Extracurriculars">
         <h1 class="extracs-header">Extracurriculars</h1>
-        
-        <div class="extrac" onclick="toggleAchievement(event)">
-      <div class="extrac-header">
-        <img src="" alt="TEDxNew Cairo STEM Youth logo">
-        TEDx New Cairo STEM
-      </div>
-      <div class="extrac-details">
-        <div class="extrac-img"><img src="" alt="Nutshell team"></div>
-            <div class="extrac-txt">
-            <p><strong>Student(s):</strong> Ahmed Mohamed (Grade 11)</p>
-            <p><strong>Year:</strong> 2024</p>
-            <p><strong>Description:</strong>    This is some placeholder text to show how scrolling works inside a small box.  
-    Keep adding more lines of text here until the content overflows the height you set.  
-    Then, the scrollbar will appear just for this section, without affecting the whole page.  
-    You can use this for achievements, descriptions, or anything that needs limited space.  
-    Add as much as you like…  
-    Line 5…  
-    Line 6…  
-    Line 7…  
-    Line 8…  </p>
-      <p>
-    Welcome to the placeholder section of this website. This is simply demo content meant to fill space and show how a scrollable area behaves. Imagine this text describing a student's achievement, a project highlight, or even a long article preview.  
-    <br><br>
-    Line after line, the text continues so that you can clearly see the scrolling in action. By adding enough words here, the container will overflow and trigger the vertical scrollbar. This makes it easy to keep a section neat and compact while still allowing the visitor to explore all the details inside.  
-    <br><br>
-    Placeholder paragraph two: The idea here is to generate enough content that cannot possibly fit inside the set height of the container. In a real website, this might represent a timeline of awards, competition results, or event details that would otherwise stretch the page too far. Keeping it scrollable helps with layout and focus.  
-    <br><br>
-    Placeholder paragraph three: Scrolling is smooth, contained, and independent of the rest of the page. The background stays fixed, the padding keeps the text comfortable, and the border visually separates this section from other elements. You could even add custom styling to make the scrollbar match your site’s theme.  
-    <br><br>
-    More filler: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.  
-    <br><br>
-    And it goes on… Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus. Nulla porttitor accumsan tincidunt.  
-    <br><br>
-    Even longer text here to ensure scrolling is obvious. A visitor can scroll through all the achievements one by one. Think of this as a dedicated mini-scroll area inside a clean page layout.  
-    <br><br>
-    End of placeholder content.
-  </p>
-        </div>
-      </div>
-    </div>
+        <div id="extracs">
 
-
-    <div class="extrac" onclick="toggleAchievement(event)">
-      <div class="extrac-header">
-        <img src="" alt="nutshell logo">
-        Nutshell 
-      </div>
-      <div class="extrac-details">
-        <div class="extrac-img"><img src="" alt="Nutshell team"></div>
-            <div class="extrac-txt">
-            <p><strong>Student(s):</strong> Ahmed Mohamed (Grade 11)</p>
-            <p><strong>Year:</strong> 2024</p>
-            <p><strong>Description:</strong>    This is some placeholder text to show how scrolling works inside a small box.  
-    Keep adding more lines of text here until the content overflows the height you set.  
-    Then, the scrollbar will appear just for this section, without affecting the whole page.  
-    You can use this for achievements, descriptions, or anything that needs limited space.  
-    Add as much as you like…  
-    Line 5…  
-    Line 6…  
-    Line 7…  
-    Line 8…  </p>
-      <p>
-    Welcome to the placeholder section of this website. This is simply demo content meant to fill space and show how a scrollable area behaves. Imagine this text describing a student's achievement, a project highlight, or even a long article preview.  
-    <br><br>
-    Line after line, the text continues so that you can clearly see the scrolling in action. By adding enough words here, the container will overflow and trigger the vertical scrollbar. This makes it easy to keep a section neat and compact while still allowing the visitor to explore all the details inside.  
-    <br><br>
-    Placeholder paragraph two: The idea here is to generate enough content that cannot possibly fit inside the set height of the container. In a real website, this might represent a timeline of awards, competition results, or event details that would otherwise stretch the page too far. Keeping it scrollable helps with layout and focus.  
-    <br><br>
-    Placeholder paragraph three: Scrolling is smooth, contained, and independent of the rest of the page. The background stays fixed, the padding keeps the text comfortable, and the border visually separates this section from other elements. You could even add custom styling to make the scrollbar match your site’s theme.  
-    <br><br>
-    More filler: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.  
-    <br><br>
-    And it goes on… Donec sollicitudin molestie malesuada. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Proin eget tortor risus. Nulla porttitor accumsan tincidunt.  
-    <br><br>
-    Even longer text here to ensure scrolling is obvious. A visitor can scroll through all the achievements one by one. Think of this as a dedicated mini-scroll area inside a clean page layout.  
-    <br><br>
-    End of placeholder content.
-  </p>
         </div>
-      </div>
-    </div>
+     <script>
+        async function fetchAndRenderAchievements() {
+    const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo"; 
+    const spreadsheetId = "YOUR_SPREADSHEET_ID";
+    const range = "Form Responses"; 
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
+    const container = document.getElementById("extracs");
+
+    // Show loading
+    container.innerHTML = `<p>Loading Extracurriculars...</p>`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!data.values || data.values.length < 2) {
+            container.innerHTML = `<p>⚠️ No Extracurriculars found yet.</p>`;
+            return;
+        }
+
+        const headers = data.values[0];
+        const rows = data.values.slice(1);
+
+        const colIndex = {
+            title: headers.indexOf("The title"),
+            desc: headers.indexOf("Description"),
+            image: headers.indexOf("img url"),
+            year: headers.indexOf("Year"),
+            founder: headers.indexOf("Founder"), // ✅ changed to Founder
+        };
+
+        container.innerHTML = "";
+
+        for (const row of rows) {
+            const rawImageCell = (row[colIndex.image] || "").toString().trim();
+            const urlMatch = rawImageCell.match(/https?:\/\/[^\s"')]+/i);
+            const imageUrl = urlMatch ? urlMatch[0] : "https://placehold.co/600x400?text=No+Image";
+
+            const title = row[colIndex.title] || "Untitled";
+            const desc = row[colIndex.desc] || "";
+            const year = row[colIndex.year] || "N/A";
+            const founder = row[colIndex.founder] || "Unknown"; // ✅ updated
+
+            // Create extrac div
+            const extrac = document.createElement("div");
+            extrac.className = "extrac";
+            extrac.onclick = (e) => toggleAchievement(e);
+
+            // Header
+            const header = document.createElement("div");
+            header.className = "extrac-header";
+            header.innerHTML = `
+                <img src="${imageUrl}" alt="${title} logo">
+                ${title}
+            `;
+
+            // Details
+            const details = document.createElement("div");
+            details.className = "extrac-details";
+
+            const imgDiv = document.createElement("div");
+            imgDiv.className = "extrac-img";
+            imgDiv.innerHTML = `<img src="${imageUrl}" alt="${title}">`;
+
+            const txtDiv = document.createElement("div");
+            txtDiv.className = "extrac-txt";
+            txtDiv.innerHTML = `
+                <strong>Founder:</strong> ${founder}<br>
+                <strong>Year:</strong> ${year}<br>
+                <strong>Description:</strong><br>${desc.replace(/\n/g, "<br>")}
+            `;
+
+            details.appendChild(imgDiv);
+            details.appendChild(txtDiv);
+
+            extrac.appendChild(header);
+            extrac.appendChild(details);
+            container.appendChild(extrac);
+        }
+    } catch (err) {
+        console.error("Error fetching sheet data:", err);
+        container.innerHTML = `<p>⚠️ Unable to load achievements. Please try again later.</p>`;
+    }
+}
+
+// Toggle expand/collapse
+function toggleAchievement(event) {
+    const extrac = event.currentTarget;
+    extrac.classList.toggle("open");
+}
+
+window.onload = fetchAndRenderAchievements;
+     </script>
 
     </section>
 </section>
