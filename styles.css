@@ -1228,17 +1228,62 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Loading Spinner Enhancement */
 .loading-spinner {
-    width: 60px;
-    height: 60px;
-    border: 4px solid rgba(245, 230, 184, 0.3);
-    border-top: 4px solid #F5E6B8;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    position: fixed;
-    top: 50%;
-    left: 50%;
+    width: 100%;
+    height: 100%;
     transform: translate(-50%, -50%);
     z-index: 10000;
+}
+.loading-spinner-achievements {
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+}
+.loading-bg{
+
+    color: #094d6b;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    width: 100%;
+}
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 40px;
+  aspect-ratio: 1;
+  --c: linear-gradient(#094d6b 0 0);
+  --r1: radial-gradient(farthest-side at bottom,#094d6b 93%,#0000);
+  --r2: radial-gradient(farthest-side at top   ,#094d6b 93%,#0000);
+  background: 
+    var(--c) ,var(--r1),var(--r2),
+    var(--c) ,var(--r1),var(--r2),
+    var(--c) ,var(--r1),var(--r2);
+  background-repeat: no-repeat;
+  animation: l2 1s infinite alternate;
+}
+@keyframes l2 {
+  0%,25% {
+    background-size: 8px 0,8px 4px,8px 4px,8px 0,8px 4px,8px 4px,8px 0,8px 4px,8px 4px;
+    background-position: 0 50%,0 calc(50% - 2px),0 calc(50% + 2px),50% 50%,50% calc(50% - 2px),50% calc(50% + 2px),100% 50%,100% calc(50% - 2px),100% calc(50% + 2px);
+ }
+ 50% {
+    background-size: 8px 100%,8px 4px,8px 4px,8px 0,8px 4px,8px 4px,8px 0,8px 4px,8px 4px;
+    background-position: 0 50%,0 calc(0% - 2px),0 calc(100% + 2px),50% 50%,50% calc(50% - 2px),50% calc(50% + 2px),100% 50%,100% calc(50% - 2px),100% calc(50% + 2px);
+ }
+ 75% {
+    background-size: 8px 100%,8px 4px,8px 4px,8px 100%,8px 4px,8px 4px,8px 0,8px 4px,8px 4px;
+    background-position: 0 50%,0 calc(0% - 2px),0 calc(100% + 2px),50% 50%,50% calc(0% - 2px),50% calc(100% + 2px),100% 50%,100% calc(50% - 2px),100% calc(50% + 2px);
+ }
+ 95%,100% {
+    background-size: 8px 100%,8px 4px, 8px 4px,8px 100%,8px 4px,8px 4px,8px 100%,8px 4px,8px 4px;
+    background-position: 0 50%,0 calc(0% - 2px),0 calc(100% + 2px),50% 50%,50% calc(0% - 2px),50% calc(100% + 2px),100% 50%,100% calc(0% - 2px),100% calc(100% + 2px);
+ }
 }
 
 /* Gradient Border Animation for Cards */
@@ -1750,6 +1795,16 @@ h1, h2, h3, h4, h5, h6 {
     transition: all 0.5s ease;
     box-shadow: #0000002c 0px 0px 5px;
     padding: 5px 0 0 20px;
+    overflow-y: scroll;
+}
+.staff-info::-webkit-scrollbar {
+  width: 10px;
+}
+.staff-info::-webkit-scrollbar-track {
+  background: #f9f9f9 !important;
+}
+.staff-info::-webkit-scrollbar-thumb {
+  background: #094d6b;
 }
 .staff-info.active{
     transform: translate(249px, -240px);
@@ -1802,17 +1857,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #F5E6B8;
   transition: all 0.5s ease;
   font-size: 1.8rem;
-  height: 100px;
+  height: 120px;
   display: flex;
   align-items: center;
   position: relative;
 }
 .extrac-header img{
-    margin-right: 20px;
+    margin: 10px 20px 10px;
     height: 100px;
     width:100px;
     font-size: 0.9rem;
-    
+    border-radius: 10px;
 }
 
 
@@ -1834,7 +1889,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .extrac-img{
     margin-right: 10px;
-    width: 450px;
+    width: 400px;
+}
+.extrac-img img{
+    height: 200px;
+    max-width: 365px;
 }
 .extrac-txt{
     overflow: scroll;
@@ -1842,6 +1901,18 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 10px;
 }
 
+.extrac-expand-arrow{
+    font-family: 'Courier New';
+    position: absolute;
+    right: 40px;
+    margin: 0 10px 0 10px;
+    font-size: 2.5rem;
+    transform: rotate(90deg);
+    transition: all 0.8s ease;
+}
+.extrac-expand-arrow.active{
+    transform: rotate(270deg);
+}
 
 
 .extrac-txt::-webkit-scrollbar {

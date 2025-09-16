@@ -56,12 +56,34 @@ function activeLinkInit(){
   });
 };
 // staff page
+
 function handleStaffclick(e){
+  const otherstaffinfo = document.querySelectorAll('.staff-info')
+  const otherstaffitem = document.querySelectorAll('.staff-item')
+  const otherstaffmember = document.querySelectorAll('.staff-member')
+
+
   const object = e.target.closest(".staff-member")
   const staffitem = e.target.closest('.staff-item')
+  if(object.classList.contains('active')){
+  otherstaffinfo.forEach(item => {item.classList.remove('active')})
+  otherstaffitem.forEach(item => {item.classList.remove('active')})
+  otherstaffmember.forEach(item => {item.classList.remove('active')})
+  } else {
+
+  otherstaffinfo.forEach(item => {item.classList.remove('active')})
+  otherstaffitem.forEach(item => {item.classList.remove('active')})
+  otherstaffmember.forEach(item => {item.classList.remove('active')})
+
   staffitem.classList.toggle('active')
   object.classList.toggle('active')
   object.children[1].classList.toggle('active')
+
+  }
+  
+
+
+
 }
 
 // academics page

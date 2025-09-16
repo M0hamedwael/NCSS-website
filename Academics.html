@@ -79,105 +79,201 @@
 
         </div>
 <script>
-async function fetchAndRenderAchievements() {
-    const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo"; 
-    const spreadsheetId = "102CAt-vrBrdFVUpmtc_lVXdyTfu0vyf4JolEuLg1BUk"; // ✅ شيل /edit?usp
-    const range = "Form Responses"; 
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}?key=${apiKey}`;
-    const container = document.getElementById("extracs");
+(async function () {
+  const apiKey = "AIzaSyCAH2AEtxsa6t4GwoDVjCDIHUq_hhbNbjo";
+  const spreadsheetId = "102CAt-vrBrdFVUpmtc_lVXdyTfu0vyf4JolEuLg1BUk";
+  const range = "Form Responses";
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}?key=${apiKey}`;
 
-    // Show loading spinner
+  const container = document.getElementById("extracs");
+  const CACHE_KEY = "extracs_cache_v1";
+  const CACHE_TTL = 30 * 1000; // 30s
+
+  function sleep(ms) {
+    return new Promise((r) => setTimeout(r, ms));
+  }
+
+  async function fetchWithRetry(url, retries = 5, baseDelay = 700) {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          const status = res.status;
+          const e = new Error(`HTTP ${status}`);
+          e.status = status;
+          throw e;
+        }
+        return await res.json();
+      } catch (err) {
+        console.warn(`fetch attempt ${attempt} failed`, err);
+        const status = err.status || null;
+        const retryable = !status || [429, 500, 502, 503, 504].includes(status);
+        if (attempt === retries || !retryable) throw err;
+        const jitter = Math.random() * 400;
+        const delay = baseDelay * Math.pow(2, attempt - 1) + jitter;
+        await sleep(delay);
+      }
+    }
+  }
+
+  function showLoading() {
     container.innerHTML = `
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-            <p>Loading Extracurriculars...</p>
+      <div class="loading-spinner">
+        <div class="loading-bg">
+          <p>Loading Extracurriculars...</p>
+          <div class="loader"></div>
         </div>
+      </div>
     `;
+  }
+
+  function renderFromData(data, { stale = false } = {}) {
+    if (!data || !data.values || data.values.length < 2) {
+      container.innerHTML = `<p>⚠️ No Extracurriculars found yet.</p>`;
+      return;
+    }
+
+    const headers = data.values[0];
+    const rows = data.values.slice(1);
+
+    const colIndex = {
+      title: headers.indexOf("The title"),
+      desc: headers.indexOf("Description"),
+      logo: headers.indexOf("Logo url"),
+      teamImg: headers.indexOf("Team img url"),
+      year: headers.indexOf("Year"),
+      founder: headers.indexOf("Founder"),
+    };
+
+    container.innerHTML = "";
+
+    if (stale) {
+      const note = document.createElement("div");
+      note.className = "stale-notice";
+      note.textContent = "Showing cached data (may be slightly out of date).";
+      container.appendChild(note);
+    }
+
+    for (const row of rows) {
+      const rawLogoCell = (row[colIndex.logo] || "").toString().trim();
+      const logoMatch = rawLogoCell.match(/https?:\/\/[^\s"')]+/i);
+      const logoUrl =
+        logoMatch?.[0] || "https://placehold.co/200x200?text=No+Logo";
+
+      const rawTeamImgCell = (row[colIndex.teamImg] || "").toString().trim();
+      const teamImgMatch = rawTeamImgCell.match(/https?:\/\/[^\s"')]+/i);
+      const teamImgUrl =
+        teamImgMatch?.[0] || "https://placehold.co/600x400?text=No+Image";
+
+      const title = row[colIndex.title] || "Untitled";
+      const desc = row[colIndex.desc] || "";
+      const year = row[colIndex.year] || "N/A";
+      const founder = row[colIndex.founder] || "Unknown";
+
+      const extrac = document.createElement("div");
+      extrac.className = "extrac";
+      extrac.onclick = (e) => toggleAchievement(e);
+
+      // Header
+      const header = document.createElement("div");
+      header.className = "extrac-header";
+      header.innerHTML = `
+        <img src="${logoUrl}" alt="${title} logo" onerror="this.src='https://placehold.co/200x200?text=No+Logo'">
+        ${title}
+        <span class="extrac-expand-arrow">&gt;</span>
+      `;
+
+      // Details
+      const details = document.createElement("div");
+      details.className = "extrac-details";
+
+      const imgDiv = document.createElement("div");
+      imgDiv.className = "extrac-img";
+      imgDiv.innerHTML = `
+        <img src="${teamImgUrl}" alt="${title} Team" onerror="this.src='https://placehold.co/600x400?text=No+Image'">
+        <p>${title} Team</p>
+      `;
+
+      const txtDiv = document.createElement("div");
+      txtDiv.className = "extrac-txt";
+      txtDiv.innerHTML = `
+        <strong>Founder:</strong> ${founder}<br>
+        <strong>Year:</strong> ${year}<br>
+        <strong>Description:</strong><br>${desc.replace(/\n/g, "<br>")}
+      `;
+
+      details.appendChild(imgDiv);
+      details.appendChild(txtDiv);
+
+      extrac.appendChild(header);
+      extrac.appendChild(details);
+      container.appendChild(extrac);
+    }
+  }
+
+  async function loadAndRender() {
+    showLoading();
+    await sleep(Math.floor(Math.random() * 600));
 
     try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        // نخلي فيه تأخير بسيط عشان يبان اللودينج (زي achievements)
-        setTimeout(() => {
-            if (!data.values || data.values.length < 2) {
-                container.innerHTML = `<p>⚠️ No Extracurriculars found yet.</p>`;
-                return;
-            }
-
-            const headers = data.values[0];
-            const rows = data.values.slice(1);
-
-            const colIndex = {
-                title: headers.indexOf("The title"),
-                desc: headers.indexOf("Description"),
-                image: headers.indexOf("img url"),
-                year: headers.indexOf("Year"),
-                founder: headers.indexOf("Founder"),
-            };
-
-            container.innerHTML = "";
-
-            for (const row of rows) {
-                const rawImageCell = (row[colIndex.image] || "").toString().trim();
-                const urlMatch = rawImageCell.match(/https?:\/\/[^\s"')]+/i);
-                const imageUrl = urlMatch ? urlMatch[0] : "https://placehold.co/600x400?text=No+Image";
-
-                const title = row[colIndex.title] || "Untitled";
-                const desc = row[colIndex.desc] || "";
-                const year = row[colIndex.year] || "N/A";
-                const founder = row[colIndex.founder] || "Unknown";
-
-                // Create extrac div
-                const extrac = document.createElement("div");
-                extrac.className = "extrac";
-                extrac.onclick = (e) => toggleAchievement(e);
-
-                // Header
-                const header = document.createElement("div");
-                header.className = "extrac-header";
-                header.innerHTML = `
-                    <img src="${imageUrl}" alt="${title} logo">
-                    ${title}
-                `;
-
-                // Details
-                const details = document.createElement("div");
-                details.className = "extrac-details";
-
-                const imgDiv = document.createElement("div");
-                imgDiv.className = "extrac-img";
-                imgDiv.innerHTML = `<img src="${imageUrl}" alt="${title}">`;
-
-                const txtDiv = document.createElement("div");
-                txtDiv.className = "extrac-txt";
-                txtDiv.innerHTML = `
-                    <strong>Founder:</strong> ${founder}<br>
-                    <strong>Year:</strong> ${year}<br>
-                    <strong>Description:</strong><br>${desc.replace(/\n/g, "<br>")}
-                `;
-
-                details.appendChild(imgDiv);
-                details.appendChild(txtDiv);
-
-                extrac.appendChild(header);
-                extrac.appendChild(details);
-                container.appendChild(extrac);
-            }
-        }, 1000); // ⏳ تأخير ثانية واحدة
-    } catch (err) {
-        console.error("Error fetching sheet data:", err);
-        container.innerHTML = `<p>⚠️ Unable to load extracurriculars. Please try again later.</p>`;
+      const cachedText = localStorage.getItem(CACHE_KEY);
+      if (cachedText) {
+        const parsed = JSON.parse(cachedText);
+        if (Date.now() - parsed.ts < CACHE_TTL) {
+          renderFromData(parsed.data);
+          console.log("Rendered from cache (fresh)");
+          return;
+        }
+      }
+    } catch (e) {
+      console.warn("cache read error", e);
     }
-}
 
-// Toggle expand/collapse
-function toggleAchievement(event) {
+    try {
+      const data = await fetchWithRetry(url, 5, 700);
+      try {
+        localStorage.setItem(
+          CACHE_KEY,
+          JSON.stringify({ ts: Date.now(), data })
+        );
+      } catch (e) {
+        console.warn("cache write failed", e);
+      }
+      renderFromData(data);
+    } catch (err) {
+      console.error("Final fetch failed", err);
+      try {
+        const cachedText = localStorage.getItem(CACHE_KEY);
+        if (cachedText) {
+          const parsed = JSON.parse(cachedText);
+          renderFromData(parsed.data, { stale: true });
+          fetchWithRetry(url, 3, 800)
+            .then((fresh) => {
+              try {
+                localStorage.setItem(
+                  CACHE_KEY,
+                  JSON.stringify({ ts: Date.now(), data: fresh })
+                );
+              } catch (e) {}
+              renderFromData(fresh);
+            })
+            .catch(() => {});
+          return;
+        }
+      } catch (e) {}
+      container.innerHTML = `<p>⚠️ Unable to load extracurriculars. Please try again later.</p>`;
+    }
+  }
+
+  loadAndRender();
+
+  function toggleAchievement(event) {
     const extrac = event.currentTarget;
-    extrac.classList.toggle("open");
-}
-
-window.onload = fetchAndRenderAchievements;
+    const extracarrow = extrac.querySelector('.extrac-expand-arrow')
+    extrac.classList.toggle("active");
+    extracarrow.classList.toggle("active")
+  }
+})();
 </script>
 
 
