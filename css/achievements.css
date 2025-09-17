@@ -197,8 +197,8 @@
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    height: 400px;
-    width: 400px;
+    width: 200px;
+    height: 200px;
     position: relative;
 }
 
@@ -208,8 +208,8 @@
 }
 
 .achievement-gallery-item img {
-    width: 400px;
-    height: 400px;
+    width: 200px;
+    height: 200px;
     transition: transform 0.3s ease;
 }
 
