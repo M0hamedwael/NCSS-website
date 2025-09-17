@@ -1,3 +1,10 @@
+/* ===========================================
+   ADMISSIONS.CSS - Admissions Page Specific Styles
+   =========================================== */
+
+/* ===========================================
+   ADMISSIONS SECTION
+   =========================================== */
 * Admissions Section */
 .admissions {
     padding: 100px 0;
@@ -57,4 +64,54 @@
     width: 100%;
     border-radius: 15px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+@media (max-width: 768px) {
+    .admissions-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .admissions-info h3 {
+        font-size: 1.8rem;
+        text-align: left;
+    }
+    
+    .admissions-info p {
+        font-size: 1rem;
+        text-align: left;
+    }
+    
+    .requirement-item {
+        padding: 0.8rem;
+        flex-direction: column;
+        text-align: left;
+    }
+    
+    .requirement-item:hover {
+        transform: translateY(-5px);
+    }
+}
+
+@media (max-width: 480px) {
+    .admissions {
+        padding: 60px 0;
+    }
+    
+    .admissions-info h3 {
+        font-size: 1.5rem;
+    }
+    
+    .requirement-item {
+        padding: 0.6rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .requirement-item i {
+        font-size: 1rem;
+    }
 }
