@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Campus - New Cairo STEM School</title>
   <link rel="icon" href="images/ico school.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/photos.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -74,14 +75,7 @@
         </div>
 </section>
 <section class="labs">
-    <div class="slider">
-            <div class="slides">
-                <img src="https://placehold.co/600x400/ffff44/000?text=Slider2+Slide1">
-                <img src="https://placehold.co/600x400/ff00ff/fff?text=Slider2+Slide2">
-                <img src="https://placehold.co/600x400/00ffff/000?text=Slider2+Slide3">
-                <img src="https://placehold.co/600x400/999999/fff?text=Slider2+Slide4">
-            </div>
-            <div class="controls"></div>
+    
         </div>
         <div class="cpage-text" id="lab-text">
         <h1>
@@ -102,6 +96,14 @@
             </ul>
         </p>
     </div>
+    <div class="slider">
+        <div class="slides">
+            <img src="https://placehold.co/600x400/ffff44/000?text=Slider2+Slide1">
+            <img src="https://placehold.co/600x400/ff00ff/fff?text=Slider2+Slide2">
+            <img src="https://placehold.co/600x400/00ffff/000?text=Slider2+Slide3">
+            <img src="https://placehold.co/600x400/999999/fff?text=Slider2+Slide4">
+        </div>
+        <div class="controls"></div>
 </section>
 <section class="dorms">
 
@@ -126,6 +128,84 @@
         </div>
 
 </section>
+<script>
+    class ImageSlider {
+      constructor(sliderElement) {
+        this.slider = sliderElement;
+        this.slides = this.slider.querySelector('.slides');
+        this.totalSlides = this.slides.children.length;
+        this.controls = this.slider.querySelector('.controls');
+        this.index = 0;
+        this.timeoutId = null;
+
+        this.initControls();
+        this.startAutoSlide();
+
+        window.addEventListener('resize', () => this.handleResize());
+      }
+
+      getSlideWidth() {
+        return this.slides.children[0].clientWidth;
+      }
+
+      // Handle responsive slider updates
+      handleResize() {
+        clearTimeout(this.resizeTimeout);
+        this.resizeTimeout = setTimeout(() => {
+          this.updateSlider();
+        }, 250);
+      }
+
+      initControls() {
+        for (let i = 0; i < this.totalSlides; i++) {
+          const btn = document.createElement('div');
+          btn.classList.add('control-btn');
+          if (i === 0) btn.classList.add('active');
+          btn.addEventListener('click', () => {
+            this.index = i;
+            this.updateSlider();
+            this.resetAutoSlide();
+          });
+          this.controls.appendChild(btn);
+        }
+      }
+
+      updateSlider() {
+        const slideWidth = this.getSlideWidth();
+        this.slides.style.transform = `translateX(-${this.index * slideWidth}px)`;
+        this.controls.querySelectorAll('.control-btn').forEach((btn, i) => {
+          btn.classList.toggle('active', i === this.index);
+        });
+      }
+
+      nextSlide() {
+        this.index = (this.index + 1) % this.totalSlides;
+        this.updateSlider();
+      }
+
+      getRandomDelay(min = 3000, max = 4000) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      startAutoSlide() {
+        const run = () => {
+          this.nextSlide();
+          this.timeoutId = setTimeout(run, this.getRandomDelay());
+        };
+        this.timeoutId = setTimeout(run, this.getRandomDelay());
+      }
+
+      resetAutoSlide() {
+        clearTimeout(this.timeoutId);
+        this.startAutoSlide();
+      }
+    }
+
+    // Initialize all sliders
+    document.querySelectorAll('.slider').forEach(sliderEl => {
+      sliderEl.imageSlider = new ImageSlider(sliderEl);
+    });
+</script>
 
 
 
