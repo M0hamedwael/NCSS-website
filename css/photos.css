@@ -38,6 +38,7 @@
 #campus-banner img {
     width: 100%;
     border-radius: 0;
+    transform: translateY(-40%);
 }
 
 #campus-banner::after {
@@ -55,13 +56,13 @@
 #campus-title {
     padding-top: 50px;
     z-index: 2;
-    color: #fdf0c3;
+    color: #F5E6B8;
     font-size: 2.8rem;
 }
 
 #campus-subtitle {
     z-index: 2;
-    color: #555555;
+    color: #f9f9f9;
 }
 
 /* ===========================================
