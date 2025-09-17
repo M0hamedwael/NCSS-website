@@ -7,7 +7,8 @@
   <link rel="icon" href="images/ico school.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/staff.css">
 </head>
 <body>
 <nav class="navbar" id="navbar">
@@ -169,10 +170,29 @@ async function generateStaff() {
 }
 
 // ================= Staff Click Modal =================
-function handleStaffclick(event) {
-    const staffItem = event.currentTarget;
-    const infoDiv = staffItem.nextElementSibling;
-    infoDiv.style.display = infoDiv.style.display === "block" ? "none" : "block";
+function handleStaffclick(e){
+  const otherstaffinfo = document.querySelectorAll('.staff-info')
+  const otherstaffitem = document.querySelectorAll('.staff-item')
+  const otherstaffmember = document.querySelectorAll('.staff-member')
+
+
+  const object = e.target.closest(".staff-member")
+  const staffitem = e.target.closest('.staff-item')
+  if(object.classList.contains('active')){
+  otherstaffinfo.forEach(item => {item.classList.remove('active')})
+  otherstaffitem.forEach(item => {item.classList.remove('active')})
+  otherstaffmember.forEach(item => {item.classList.remove('active')})
+  } else {
+
+  otherstaffinfo.forEach(item => {item.classList.remove('active')})
+  otherstaffitem.forEach(item => {item.classList.remove('active')})
+  otherstaffmember.forEach(item => {item.classList.remove('active')})
+
+  staffitem.classList.toggle('active')
+  object.classList.toggle('active')
+  object.children[1].classList.toggle('active')
+
+  }
 }
 
 // ================= Initialize =================

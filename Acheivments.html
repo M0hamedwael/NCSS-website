@@ -7,7 +7,8 @@
     <link rel="icon" href="images/ico school.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/achievements.css">
     <script src="script.js"></script>
 </head>
 <body>
@@ -88,7 +89,7 @@
     container.innerHTML = `
       <div class="loading-spinner-achievements">
             <div class ="loading-bg">
-                <p>Loading Extracurriculars...</p>
+                <p>Loading Achievements...</p>
                 <div class="loader"></div>
             </div>
         </div>
@@ -232,6 +233,46 @@
 
   loadAndRender();
 
+  function initachievements(){
+      const openBtn = document.getElementById("openModal");
+    const overlay = document.getElementById("achievement-overlay");
+    const modal = document.getElementById("modalBox");
+    const closeBtn = document.getElementById("achievement-closeBtn");
+    };
+    function handleAchievementOverlay(event) {
+      const card = event.target.closest(".card-wrapper")
+      const cardoverlay = card.querySelector(".achievement-overlay")
+      const modal = card.querySelector(".modal")
+      
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+      
+      cardoverlay.classList.add("active");
+      setTimeout(() => modal.classList.add("active"), 50);
+    };
+    function handleAchievementclose(event){
+      const modal = event.target.closest(".modal")
+      const overlay = event.target.closest(".achievement-overlay")
+      
+      // Restore body scroll when modal is closed
+      document.body.style.overflow = 'auto';
+      
+      modal.classList.remove("active");
+      setTimeout(() => overlay.classList.remove("active"), 400);
+    }
+    function handleoverlayclose(e){
+      const overlay = e.target.closest(".achievement-overlay")
+      const modal = overlay.querySelector(".modal") 
+      if (e.target === overlay) {
+        // Restore body scroll when modal is closed
+        document.body.style.overflow = 'auto';
+        
+        modal.classList.remove("active");
+        setTimeout(() => overlay.classList.remove("active"), 400);
+      }
+    }
+    
+
 })();
 </script>
 
@@ -260,45 +301,45 @@
                         We aim to represent our school’s vision and serve our community.
                 </p>
             </div>  
-            <div class="campus-gallery">
-                <div class="gallery-item" id="founder">
+            <div class="achievement-gallery">
+                <div class="achievement-gallery-item" id="founder">
                     <img src="images/logo.png" alt="founder">
-                    <div class="gallery-overlay">
+                    <div class="achievement-gallery-overlay">
                         <h4> founder</h4>
                         <p class="job">Web developer</p>
                     </div>
                 </div>
-                <div class="gallery-item" id="founder">
+                <div class="achievement-gallery-item" id="founder">
                     <img src="images/logo.png" alt="founder">
-                    <div class="gallery-overlay">
+                    <div class="achievement-gallery-overlay">
                         <h4> founder</h4>
                         <p class="job">Web developer</p>
                     </div>
                 </div>
-                <div class="gallery-item" id="founder">
+                <div class="achievement-gallery-item" id="founder">
                     <img src="images/logo.png" alt="founder">
-                    <div class="gallery-overlay">
+                    <div class="achievement-gallery-overlay">
                         <h4> founder</h4>
                         <p> &nbsp;&nbsp;&nbsp; Web developer</p>
                     </div>
                 </div>
-                <div class="gallery-item" id="founder">
+                <div class="achievement-gallery-item" id="founder">
                     <img src="images/logo.png" alt="founder">
-                    <div class="gallery-overlay">
+                    <div class="achievement-gallery-overlay">
                         <h4> founder</h4>
                         <p> &nbsp;&nbsp;&nbsp; Web developer</p>
                     </div>
                 </div>
-                <div class="gallery-item" id="founder">
+                <div class="achievement-gallery-item" id="founder">
                     <img src="images/logo.png" alt="founder">
-                    <div class="gallery-overlay">
+                    <div class="achievement-gallery-overlay">
                         <h4> founder</h4>
                         <p> &nbsp;&nbsp;&nbsp; Web developer</p>
                     </div>
                 </div>
-                <div class="gallery-item" id="founder">
+                <div class="achievement-gallery-item" id="founder">
                     <img src="images/logo.png" alt="founder">
-                    <div class="gallery-overlay">
+                    <div class="achievement-gallery-overlay">
                         <h4> founder</h4>
                         <p> &nbsp;&nbsp;&nbsp; Web developer</p>
                     </div>
@@ -380,8 +421,6 @@
         <img class="lightbox-content" id="lightbox-img">
         <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
 

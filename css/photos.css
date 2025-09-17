@@ -1,0 +1,298 @@
+/* ===========================================
+   PHOTOS.CSS - Campus/Photos Page Specific Styles
+   =========================================== */
+
+/* ===========================================
+   PHOTO GALLERY LAYOUT
+   =========================================== */
+
+.photo-gallery {
+    background-color: #f8f9fa;
+    overflow: hidden;
+    width: 100%;
+}
+
+#campus-container {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+}
+
+.campus-header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 0px;
+    padding-bottom: 230px;
+    position: relative;
+    width: 100%;
+}
+
+#campus-banner {
+    z-index: 0;
+    width: 100%;
+    position: absolute;
+    border-radius: 0;
+}
+
+#campus-banner img {
+    width: 100%;
+    border-radius: 0;
+}
+
+#campus-banner::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    background: linear-gradient(to top, #ffffff 55%, rgba(255, 255, 255, 0));
+}
+
+#campus-title {
+    padding-top: 50px;
+    z-index: 2;
+    color: #fdf0c3;
+    font-size: 2.8rem;
+}
+
+#campus-subtitle {
+    z-index: 2;
+    color: #555555;
+}
+
+/* ===========================================
+   SLIDER COMPONENT
+   =========================================== */
+
+.slider {
+    position: relative;
+    width: 500px;
+    height: 281px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.6s ease;
+}
+
+.slides img {
+    width: 500px;
+    height: 281px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.controls {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+}
+
+.control-btn {
+    width: 20px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding-top: 3px;
+}
+
+.control-btn:hover {
+    transform: translateY(-1px);
+}
+
+.control-btn.active {
+    background: #fff;
+}
+
+/* ===========================================
+   SCHOOL OVERVIEW SECTION
+   =========================================== */
+
+.school-overview {
+    display: flex;
+    flex-direction: row;
+    padding: 100px 60px 75px 100px;
+}
+
+.cpage-text {
+    padding-bottom: 10px;
+}
+
+.cpage-text p {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    color: #555555;
+}
+
+.cpage-text h1 {
+    font-size: 2rem;
+    color: #094d6b;
+}
+
+#so-text {
+    margin-right: 50px;
+}
+
+/* ===========================================
+   LABS SECTION
+   =========================================== */
+
+.labs {
+    display: flex;
+    padding: 50px 100px 100px 60px;
+    background-color: #f9f9f9;
+    flex-direction: row-reverse;
+}
+#lab-text{
+    margin-left: 3rem;
+}
+
+/* ===========================================
+   DORMS SECTION
+   =========================================== */
+
+.dorms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0 50px;
+}
+
+#dorms-text {
+    width: 80%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#dorms-text p {
+    max-width: none;
+}
+
+#dorms-slider {
+    width: 600px;
+    height: 338px;
+}
+
+#dorms-slider .slides img {
+    width: 600px;
+    height: 338px;
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+
+@media (max-width: 768px) {
+    .campus-header {
+        padding-bottom: 150px;
+    }
+    
+    .slider {
+        width: 400px;
+        height: 225px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .slides img {
+        width: 400px;
+        height: 225px;
+    }
+    
+    .school-overview {
+        padding: 10px;
+        flex-direction: column;
+    }
+    
+    .labs {
+        padding: 10px;
+        flex-direction: column;
+    }
+    #lab-text{
+        margin-left: 0;
+    }
+    
+    #so-text {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .cpage-text h1 {
+        font-size: 1.8rem;
+    }
+    
+    .cpage-text p {
+        font-size: 1.1rem;
+    }
+    
+    #dorms-text {
+        width: 90%;
+    }
+    
+    #dorms-slider {
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    #dorms-slider .slides img {
+        width: 100%;
+        height: auto;
+    }
+    
+    #campus-title {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .campus-header {
+        padding-bottom: 100px;
+    }
+    
+    .slider {
+        width: 300px;
+        height: 169px;
+        border-radius: 12px;
+    }
+    
+    .slides img {
+        width: 300px;
+        height: 169px;
+    }
+    
+    .cpage-text h1 {
+        font-size: 1.5rem;
+    }
+    
+    .cpage-text p {
+        font-size: 1rem;
+    }
+    
+    #campus-title {
+        font-size: 1.8rem;
+        padding-top: 30px;
+    }
+    
+    .dorms {
+        padding: 30px 0;
+    }
+    
+    #dorms-slider {
+        width: 95%;
+        max-width: 300px;
+    }
+}
