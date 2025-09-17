@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () =>{
 
 // Initialize responsive features
 function initResponsiveFeatures() {
-  // Handle responsive images
-  handleResponsiveImages();
+
   
   // Add touch support for mobile
   addTouchSupport();
@@ -16,14 +15,8 @@ function initResponsiveFeatures() {
   handleViewportChanges();
 }
 
-// Handle responsive images
-function handleResponsiveImages() {
-  const images = document.querySelectorAll('img');
-  images.forEach(img => {
-    img.style.maxWidth = '100%';
-    img.style.height = 'auto';
-  });
-}
+
+
 
 // Add touch support for mobile devices
 function addTouchSupport() {

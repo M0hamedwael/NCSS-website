@@ -118,7 +118,7 @@
 .vision-txt p {
     color: #555555;
     font-size: 1.2rem;
-    width: 1000px;
+    width: 70%;
     padding-top: 40px;
     animation: floatIn 1s ease forwards;
     animation-timeline: view();
